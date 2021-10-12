@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Northwest Basket Weaver | CSDT</title>
+    <title>Virtual Bead Loom | CSDT</title>
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css">
 
@@ -94,9 +94,8 @@
     </nav>
 
     <main class="container mt-4">
-
-
         <div class="row mb-3 mt-5">
+
             <div id="canvas-container" class="col-6">
 
                 <!-- Application navigation -->
@@ -158,14 +157,14 @@
             </div>
 
             <div id="data-container" class="col-6">
-                <h3 id="application-title" class="text-center mb-3">Northwest Basket Weaver</h3>
+                <h3 id="application-title" class="text-center mb-3">Virtual Bead Loom</h3>
                 <div class="row">
                     <form id="data-form" class="col-6">
 
                         <!-- Bead pattern options -->
                         <fieldset class="mb-1">
 
-                            <label for="bead-style">Weave Pattern:</label>
+                            <label for="bead-style">Bead Pattern:</label>
                             <div class="form-group">
                                 <select class="form-control" id="bead-style">
                                     <option selected value="point--field">Point</option>
@@ -355,11 +354,11 @@
 
                         <!-- Available options for a linear iteration-->
                         <fieldset id="linear-iteration--field" hidden>
-                            <label for="row-length">Start with a line of weaves:</label>
+                            <label for="row-length">Start with a line of beads:</label>
                             <div class="single-line-group">
                                 <div class="input-group mb-3 input-group-sm">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text" id="row-length-addon"># of Weaves</span>
+                                        <span class="input-group-text" id="row-length-addon"># of Beads</span>
                                     </div>
                                     <input id="row-length" autocomplete="off" value="7" type="number"
                                         class="form-control " placeholder="eg. 7" aria-label="row-length"
@@ -622,9 +621,9 @@
 
                     <section id="bead-control" class="col-6">
                         <figure>
-                            <img src="./img/basket/weave-1.png" class="img-fluid" id="goal-image" data-toggle="modal"
+                            <img src="./img/loom/bl-1.png" class="img-fluid" id="goal-image" data-toggle="modal"
                                 data-target="#beadGallery">
-                            <figure class="text-center">Click for more images</figure>
+                            <figcaption class="text-center">Click for more images</figcaption>
                         </figure>
 
                         <div class="row mt-3">
@@ -933,7 +932,7 @@
     <script src="./js/events.js"></script>
     <script src="./js/main.js"></script>
     <script>
-        switchApplications(basketWeaverApp);
+        switchApplications(beadLoomApp);
         initApplication();
     </script>
 </body>

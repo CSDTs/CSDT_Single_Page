@@ -1,0 +1,17 @@
+canvas {
+  border: 1px solid #000000;
+  width: 100%;
+  height: auto;
+}
+.coordinate-backing {
+  background-color: hsl(210deg 12% 80%);
+  padding: 10px;
+  color: #212529;
+  width: 100%;
+  display: inline-flex;
+  justify-content: center;
+}
+
+#pattern-image {
+  border: 1px solid #c1c1c1;
+}
