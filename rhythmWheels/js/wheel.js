@@ -196,7 +196,7 @@ class Wheel {
 
     // Create the field label
     this.beatCountLabel = document.createElement("label");
-    this.beatCountLabel.innerHTML = "Num of Beats:";
+    this.beatCountLabel.innerHTML = "# of Beats:";
     // this.beatCountLabel.classList.add("num_of_beats_label");
 
     // Create the select input
