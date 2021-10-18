@@ -3,6 +3,7 @@
 let parser = {};
 
 parser.parse = function (opts, ref) {
+  console.table(opts);
   if (opts === undefined) {
     return alert("Could not parse: Undefined parameter");
   }
@@ -107,11 +108,10 @@ parser["rw v0.0.1"] = function (opts, ref, lines) {
 parser["rw v0.0.2"] = function (opts, ref, lines) {
   let data = JSON.parse(lines[1]);
 
-  globals.currentProjectName = data["title"];
-  document.getElementById(cloudUI.projectNameField).value =
-    globals.currentProjectName;
+  currentProject.name = data["title"];
+  document.getElementById(cloudUI.projectNameField).value = currentProject.name;
   document.getElementById(cloudUI.projectNameField).innerHTML =
-    globals.currentProjectName;
+    currentProject.name;
 
   globals.bpm = data["tempo"];
 

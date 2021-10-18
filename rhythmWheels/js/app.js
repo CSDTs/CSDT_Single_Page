@@ -1,3 +1,4 @@
+/*eslint-disable*/
 class RhythmWheels {
   constructor(opts) {
     if (opts === undefined) opts = {};
@@ -63,6 +64,9 @@ class RhythmWheels {
    * Playback the audio.
    */
   playRhythm() {
+    currentProject.modified = true;
+    updateVisibleModifiedStatus();
+
     if (this.audioContext.state === "suspended") {
       this.audioContext.resume();
     }
@@ -95,6 +99,9 @@ class RhythmWheels {
    * Stops the execution of the currently playing rhythm.
    */
   stopRhythm() {
+    currentProject.modified = true;
+    updateVisibleModifiedStatus();
+
     // If it is not even playing, just exit out.
     if (!this.isCurrentlyPlaying) return;
 
@@ -362,7 +369,7 @@ class RhythmWheels {
         let element = document.createElement("a");
 
         element.href = blobURL;
-        element.setAttribute("download", globals.currentProjectName);
+        element.setAttribute("download", currentProject.name);
         element.style.display = "none";
         document.body.appendChild(element);
         element.click();

@@ -952,5 +952,3 @@ class RecordWheel {
 
 // TODO Terminology change between nodes, sound tiles, etc. Kind of confusing..
 // TODO Attach record audio duration, start, end to record wheel
-
-// Credit: Mateusz Rybczonec
