@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<script src='https://code.jquery.com/jquery-1.11.0.min.js'></script>
+<script src='https://code.jquery.com/ui/1.11.1/jquery-ui.min.js'></script>
+<script src='./sortable.js'></script>
+<link rel='stylesheet' href='https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+
+<head>
+    <meta content='text/html;charset=utf-8' http-equiv='Content-Type'>
+    <meta content='utf-8' http-equiv='encoding'>
+    <title>Skateboarding - The JavaScript Skateboarding Simulator</title>
+    <link rel='stylesheet' type='text/css' href='skateboarding.css' />
+    <link rel='stylesheet' type='text/css' href='css/main.css' />
+    <script>
+
+    </script>
+</head>
+
+<body>
+    <div>
+        <div id='loginDialog' class='loginpopup' title='Login'>
+            <h1> User Name: </h1>
+            <input id='loginusername' class='input login' type='text' name='username' />
+            <br />
+            <h1> Password: </h1>
+            <input id='loginpassword' class='input login' type='password' name='password' />
+        </div>
+
+        <div id='viewoverlay'></div>
+        <div id='canvasesdiv'>
+            <canvas id='background'>
+                This text is displayed if your browser does not support HTML5 Canvas.
+            </canvas>
+
+            <canvas id='canvas1'>
+                This text is displayed if your browser does not support HTML5 Canvas.
+            </canvas>
+
+            <canvas id='canvas2'>
+                This text is displayed if your browser does not support HTML5 Canvas.
+            </canvas>
+        </div>
+        <div id='leftMenu'>
+            <div class='dropdown'>
+                <button id='save' class='button menu1 dropbtn' ; title='Save the game' ;
+                    onclick='saveGameButton();'></button>
+                <div id='saveGameMenu' class='dropdown-content menu'>
+                    <a onclick='saveGameLocal()'>↓ Save Locally</a>
+                    <a onclick='saveGameCloud()'>↓ Save To Cloud</a>
+                </div>
+            </div>
+            <div class='dropdown'>
+                <button id='load' class='button menu1 dropbtn' ; title='Load the game' ;
+                    onclick='loadGameButton();'></button>
+                <div id='loadGameMenu' class='dropdown-content menu'>
+                    <a onclick="document.getElementById('loadlocal').click();">↑ Load Local File</a>
+                    <a id='loadcloud' ; onclick='loadGameCloud()'>↑ Load From Cloud</a>
+                </div>
+            </div>
+            <button id='move' class='button menu1' ; title='Move Graph with Mouse' ; onclick='moveButton();'></button>
+            <!-- <button id='draw' class='button menu1'; title='Draw the Trails by Hand!'; onclick='drawTrailButton();'></button> -->
+            <button id='erase' class='button menu1' ; title='Hold Click and Drag to Erase Graphs' ;
+                onclick='eraseTrailButton();'></button>
+            <button id='reset' class='button menu1' ; title='Reset Starting Location' ; onclick='reset();'></button>
+            <button id='zoom' class='button menu1' ; title='Zoom the view' ; onclick='zoomButton();'></button>
+            <!-- <div id= 'penbarb' class='bar'>pen</div>
+		<div id= 'penbara' class='bar'></div> -->
+        </div>
+
+        <div id='topMenu'>
+            <span id="message"></span>
+            <button id='start' class='button menu' ; title='Start/Reset the Simulation' ; onclick='start();'></button>
+            <button id='restart' class='button menu' ; title='Pause the Simulation' ;
+                onclick='restartButton();'></button>
+
+            <div id='joyboard' class='scoreboard'>
+                <h1>Joy</h1>
+                <button class='button score' ; id='joyBtn' ; onclick='displayInfo(infoJoy);' ;>0</button>
+            </div>
+            <div id='ouchboard' class='scoreboard'>
+                <h1>Ouch</h1>
+                <button class='button score' ; id='ouchBtn' ; onclick='displayInfo(infoOuch);' ;>0</button>
+            </div>
+
+            <button id='login' class='button menu' ; title='User Login' ; onclick='userLogin();'></button>
+            <button id='help' class='button menu' ; title='FAQ' ; onclick='displayNewHelp();'></button>
+        </div>
+
+        <div id='sideMenu'>
+            <button id='closeSideMenu' class='button menu' ; onclick='hideSideMenu();'>></button>
+            <input id='equationInput' class='input equation' ; type='text' name='equationInput'
+                placeholder='Enter y=f(x)'>
+            <h1>X start: </h1>
+            <input id='equationStartX' class='input equation' ; type='text' name='equationStartX' placeholder='Start'>
+            <h2>X end: </h2>
+            <input id='equationEndX' class='input equation' ;type='text' name='equationEndX' placeholder='End'>
+            <button id='editGraph' class='button td round' ; onclick='editGraph();'></button>
+            <button id='drawGraph' class='button td round' ; onclick='drawGraphBtn();'></button>
+
+            <div class='dropdown'>
+                <button id='sampleBtn' onclick='clickSample()' class='button td dropbtn'></button>
+                <div id='sampleEquation' class='dropdown-content'>
+                    <a onclick='listSampleBtn(0)'>2</a>
+                    <a onclick='listSampleBtn(1)'>y=-0.5x</a>
+                    <a onclick='listSampleBtn(2)'>y=-0.3x-2</a>
+                    <a onclick='listSampleBtn(3)'>y=0.1x^2</a>
+                    <a onclick='listSampleBtn(4)'>y=0.05*(x+5)^2</a>
+                    <a onclick='listSampleBtn(5)'>y=sin(0.5x)-0.2x</a>
+                    <a onclick='listSampleBtn(6)'>y=-3*log(0.1x+0.1)+0.4x-6</a>
+                </div>
+            </div>
+            <h3 id='coordinates'>x: 0 y: 0</h3>
+            <div id='equationList'>
+
+            </div>
+            <section id='equationMenu'>
+                <select name="templates" id="equationTemplates">
+                    <option value="linear" default selected>Linear</option>
+                    <option value="circle">Circle</option>
+                    <option value="spiral">Spiral</option>
+                </select>
+
+                <div id="equationTemplateDisplay">
+                    <div id="linearTemplate">
+                        <select name="linearExampleEquations" id="linearEquationExamples">
+                            <option value="2" default selected>y=2</option>
+                            <option value="-0.5x">y=-0.5x</option>
+                            <option value="-0.3x-2">y=-0.3x-2</option>
+                        </select>
+                        <br>
+                        <span>y=</span> <input type="text" name="linearTemplate" id="linearInput" placeholder="f(x)">
+                        <label for="linearInput" id='linearTestLabel'>General Form: </label>
+                        <div class="equationInputs">
+                            <input type="number" name="xStart" id="xStart" placeholder="X Start">
+                            <input type="number" name="xEnd" id="xEnd" placeholder="X End">
+                        </div>
+                    </div>
+                    <div id="circleTemplate" hidden>
+                        <select name="circleExampleEquations" id="circleExampleEquations">
+                            <option value="2" default selected>x^2 + y^2 = r^2</option>
+                            <option value="-0.5x">x + y = 4</option>
+                        </select>
+                        <br>
+                        <input type="text" name="circleTemplate" id="circleInput" placeholder="x^2 + y^2">
+                        <span>=r^2</span>
+                        <label for="linearInput" id='circleTestLabel'>General Form: </label>
+                        <div class="equationInputs">
+                            <input type="number" name="radius" id="radius" placeholder="Radius">
+                        </div>
+                    </div>
+                    <div id="spiralTemplate" hidden>
+                        <span>y=</span> <input type="text" name="spiralTemplate" id="spiralTemplate" placeholder="sinx">
+                    </div>
+                </div>
+
+                <button>Draw Graph</button>
+            </section>
+        </div>
+
+        <!-- The Modal -->
+        <div id='helpPop' class='modal'>
+
+            <!-- Modal content -->
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <span class='closehelp'>&times;</span>
+                    <h2>Skateboarding App</h2>
+                </div>
+                <div class='modal-body'>
+                    <p>To create a skateboarding path, select an equation from the sample list, or write your own
+                        equation. Then press Draw.</p>
+                    <p>You can use +, -, *, /, (), ^, sin, cos, tan, log, sqrt to draw the graph</p>
+                    <p>To watch it ride your path, press Play</p>
+                    <p>You can reposition the start location of the skateboarder by pressing the flag button.</p>
+                    <p>You can also selectively erase paths with the erase button.</p>
+                    <p>The up-arrow pops an ollie.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="helpTOC" class="modal">
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <span class='closehelp newCloseHelp'>&times;</span>
+                    <h2>FAQ</h2>
+                </div>
+                <div class="help-menu-content modal-body">
+                    <p>
+                        <a href="#basics">Basics</a><br>
+                        <a href="#started">How to get started</a><br>
+                        <a href="#math-help">Math Help</a><br>
+                        <a href="#leftright" class="indented">How do I move the parabola left and right?</a><br>
+                        <a href="#updown" class="indented">How do I move the parabola up and down?</a><br>
+                        <a href="#shape" class="indented">How do you change the shape of the line?</a>
+                    </p>
+                    <p>
+                        <div id="basics">
+                            <p class="TOC-title"><strong class="help-title">Basics</strong></p>
+                            <p>To create a skateboarding path, select an equation from the sample list, or write your
+                                own equation. Then press Draw.</p>
+                            <p>You can use +, -, *, /, (), ^, sin, cos, tan, log, sqrt to draw the graph</p>
+                            <p>To watch it ride your path, press Play</p>
+                            <p>You can reposition the start location of the skateboarder by pressing the flag button.
+                            </p>
+                            <br>You can also selectively erase paths with the erase brush.
+                    </p>
+                    <p>The up-arrow pops an ollie.</p>
+                    <p>Score is calculated by joy (speed and airtime) multiplied by 50 subtracted by the ouch score (the
+                        number of hard landings) multiplied by 25.</p>
+                </div>
+                </p>
+                <p>
+                    <div id="started">
+                        <p class="TOC-title"><strong class="help-title">Getting Started</strong></p>
+                        <p>You can select a pre-made graph by clicking the "Select Sample Equation" button and choosing
+                            a function.</p>
+                        <p>Remember each graph must have a left bounds and a right bounds. These are the x values under
+                            "X start" and "X end."</p>
+                        <p>If you are modifying an existing function, click the oval with the function (it will turn
+                            orange), retype the new formula in the y=f(x) box, then click "redraw."</p>
+                        <p>You can quickly delete a graph by clicking the "[X]" to the right of its button. You can also
+                            drag and drop the functions to rearrange them in a different order (for example, you can
+                            order them from left to right).</p>
+                        <p>To erase a graph, click the erase button on the left and click and drag the mouse over the
+                            line you want to erase. It will remove the line.</p>
+                        <p>To position the start location of the skateboarder, click the checkered flag button then
+                            click anywhere on the canvas. The starting flag will move to where you click. This is where
+                            the skateboarder starts each time you click the reset button.</p>
+                        <p>To run the skateboarder, click the Play button at the top. You can pause the action by
+                            clicking the play button again. To reset the skateboarder at the end of the run and
+                            calculate your score, click the reset button right next to the play button.</p>
+                        <p>To save your track, click on the save icon (the disk) and log in if you aren't already logged
+                            in. You can also log in by clicking the account icon in the upper right. Then name the track
+                            and it will be saved to your account. Under the csdt.org website, click "my account" to
+                            access and load your saved track, or within the program click on the load track button,
+                            second down on the left, and choose "load from cloud."</p>
+                    </div>
+                    <div id="math-help">
+                        <p class="TOC-title"><strong class="help-title">Math Help</strong></p>
+                        <p id="leftright">
+                            <u class="help-title">How do I move the parabola left and right?</u><br>
+                        </p>
+                        <p>
+                            The formula for a parabola in vertex form is y=a(x−h)^2+k. The (x-h) is essentially the x
+                            coordinate of the vertex, and either subtracting an h will move the graph to the right or
+                            adding an h will move the graph to the left.<br>
+                            For example, if the function is y=-1/2x+4, add a plus or minus to the x: y=-1/2(x+4)+4 to
+                            move to the left or y=-1/2(x-4)+4 to move to the right. For a parabola, use
+                            y=1/8(((x-5)^2))+4 to move right by five or y=1/8(((x+5)^2))+4 to move to the left by five.
+                            In other words, surround the x with parenthesese ("(x)^2") then add in a number to move to
+                            left ("(x+5)^2"), or subtract a value to move to right ("(x-5)^2").
+                        </p>
+                        <p id="updown"><u class="help-title">How do I move the parabola up and down?</u></p>
+                        <p>Add a number at the end of the equation to move the parabola up the y axis ("y=-1/2x+10"
+                            intercepts the y axis at y = +10), or subtract a number to move it down the y axis
+                            ("y=-1/2x-10" intercepts the y axis at y = -10).</p>
+                        <p id="shape"><u class="help-title">How do you change the shape of the line?</u></p>
+                        <p>
+                            y=x^1: slope (vertical change / horizontal change, or rise / run)<br>
+                            y=x^2: parabola<br>
+                            y=x^3: cubic curve<br>
+                            y=x^4: an even tighter parabola<br>
+                            y=x^5: an even tighter cubic curve<br>
+
+                        </p>
+                        <p>
+                            Add a fraction in front of the x variable to spread the parabola out over the x-axis. The
+                            smaller the fraction the more it is spread out (the result of squaring x is divided by the
+                            denominator, meaning its growth in the y-axis is slower). Example: y=1/2x^2 is wider than
+                            y=x^2, but y=1/8x^2 is even wider.
+                        </p>
+                    </div>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class='speedometer' style='text-align:center' onclick='changeSpeedometerUnit()'>
+        <svg viewbox='0 0.5 10 8' id='speedometerring'>
+            <path d='M2 8 A 4 4 0 1 1 8 8' fill='none' stroke-width='0.78' stroke='#a4a4a4' />
+            <path id='speedometerringbar' class='loader' d='M2 8 A 4 4 0 1 1 8 8' fill='none' stroke-width='0.8'
+                stroke='#ff6600' />
+        </svg>
+        <h1 id='speedometertext'>0</h1>
+        <h2 id='speedometertext1'>m/s</h2>
+    </div>
+
+    <div id='gameInfo' class='modal infomodal'>
+        <div id='infocont' class='modal-content infomodal-content'>
+            <span class='close' onclick='closeInfo();'>&times;</span>
+            <p id='infoP'>...</p>
+        </div>
+    </div>
+
+    <a><input id='loadlocal' type='file'></a>
+    <script>
+        let infoJoy = 'Joy is measured by speed and airtime.';
+        let infoOuch = 'Ouch is measured by the number of hard landings';
+    </script>
+    <script src='saveToCloud.js'></script>
+    <script src='skateboarding.js'></script>
+    <script src='main.js'></script>
+
+    </div>
+</body>
+
+</html>

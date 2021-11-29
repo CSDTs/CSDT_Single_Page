@@ -1,0 +1,30 @@
+#equationMenu {
+  margin-top: 25rem;
+}
+
+#equationTemplates {
+  width: 100%;
+  font-size: 1.2rem;
+}
+
+#equationTemplateDisplay {
+  background-color: #fff;
+  border: 1px solid #222;
+  padding: 15px;
+  font-size: 1.2rem;
+  margin-top: 0.85rem;
+  text-align: center;
+}
+
+#linearTemplate select,
+#circleTemplate select {
+  margin-bottom: 3rem;
+}
+
+.equationInputs {
+  display: inline-flex;
+  justify-content: space-around;
+}
+.equationInputs input {
+  width: 45%;
+}
