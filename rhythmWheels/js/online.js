@@ -584,7 +584,9 @@ function saveProjectToCloud() {
     currentProject.screenshot_id = saveObject.image;
     currentProject.data_id = values[0];
     currentProject.classroom = currentProject.new
-      ? parseInt($(`#${cloudUI.saveProjectClassroomSelect}`).val())
+      ? $(`#${cloudUI.saveProjectClassroomSelect}`).val() == "Choose..."
+        ? null
+        : parseInt($(`#${cloudUI.saveProjectClassroomSelect}`).val())
       : currentProject.classroom;
 
     if (currentProject.new || currentProject.id == "") {
