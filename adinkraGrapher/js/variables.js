@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 // Application ID can be found via django admin panel
-let applicationID = 99;
+let applicationID = 144;
 
 // Create cloud instance
 window.csdtCloud;
@@ -92,8 +92,8 @@ let appReferences = {
 
   braidGoal: ".braid-img",
   braidGoalPlaceholder: "#goal-image",
-  braidGallery: "#braidGallery",
-  braidGalleryContainer: "braidGalleryContainer",
+  symbolGallery: "#symbolGallery",
+  symbolGalleryContainer: "symbolGalleryContainer",
 
   newBraidBtn: "#new-braid",
   resetCurrentBtn: "#reset-braid",
@@ -119,52 +119,26 @@ let midVectors = [];
 let currBraidIndex = 0;
 let Braids = [];
 
-// The canvas object that will be used
-// const braidCanvas = document.getElementById("braidCanvas");
-// const ctx = braidCanvas.getContext("2d");
-// Different highlight values to distinguish different braids
-let braidHighlightColors = [
-  "#EF4444",
-  "#F97316",
-  "#EAB308",
-  "#10B981",
-  "#3B82F6",
-  "#A855F7",
-  "#EC4899",
-];
+let elt = document.getElementById("calculator");
+let calculator = Desmos.GraphingCalculator(elt, {
+  keypad: false,
+});
 
-// Default state values for a current braid
-let defaultValues = {
-  iteration: 0,
-  x: 0,
-  y: 0,
-  startAngle: 0,
-  startDilation: 100,
-  reflectX: false,
-  reflectY: false,
-  translate: 50,
-  rotate: 0,
-  dilate: 100,
-};
-
-// Example state (i.e. the braid that gets loaded first to show off the software)
-let exampleValues = {
-  iteration: 16,
-  x: -142,
-  y: 140,
-  startAngle: 0,
-  startDilation: 161,
-  reflectX: false,
-  reflectY: false,
-  translate: 50,
-  rotate: -2,
-  dilate: 97,
-};
+const equationInput = document.getElementById("equation");
+const equationStartX = document.getElementById("start-x");
+const equationEndX = document.getElementById("end-x");
+const equationRadius = document.getElementById("radius");
+const drawEquationBtn = document.getElementById("drawEquation");
+const equationTemplate = document.getElementById("equationExamples");
+const linearParameters = document.getElementById("linearParameters");
+const circleParameters = document.getElementById("circleParameters");
+const redoBtn = document.getElementById("redo");
+const undoBtn = document.getElementById("undo");
 
 // Data that gets passed to cloud framework
 let saveObject = {
-  project: Braids,
-  image: "braidCanvas",
+  project: calculator.getState(),
+  image: calculator.screenshot(),
 };
 
 let currentProject = {
@@ -191,8 +165,8 @@ let currentUser = {
 
 const goalImages = document.querySelectorAll(".braid-img");
 const currentGoalImage = document.getElementById("goal-image");
-const goalImageModal = document.getElementById("braidGallery");
-const goalImageContainer = document.getElementById("braidGalleryContainer");
+const goalImageModal = document.getElementById("symbolGallery");
+const goalImageContainer = document.getElementById("symbolGalleryContainer");
 
 const applicationTitle = document.getElementById("application-title");
 const applicationContainer = document.getElementById("canvas-container");
@@ -216,7 +190,7 @@ const detailsProjectComponent = document.getElementById(
 //API Links
 const csdtAPI = {
   project: "/api/projects/",
-  classroom: "/api/team",
+  classroom: "/api/classroom",
   file: "/api/files/",
   user: "/api/user",
   login: "/accounts/login/",

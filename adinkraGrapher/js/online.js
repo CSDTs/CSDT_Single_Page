@@ -548,6 +548,10 @@ function saveProjectToCloud() {
   // Second, alert the user that their project is saving
   alertUser("Saving your project. Please wait...");
 
+  //Third, refresh save object
+  saveObject.project = calculator.getState();
+  saveObject.image = calculator.screenshot();
+
   let projectForm = generateSaveFormData(
     saveObject.project,
     "application/json"
@@ -564,8 +568,11 @@ function saveProjectToCloud() {
   Promise.all([imgPromise, dataPromise]).then((values) => {
     currentProject.screenshot_id = values[0];
     currentProject.data_id = values[1];
+    console.log($(`#${cloudUI.saveProjectClassroomSelect}`).val());
     currentProject.classroom = currentProject.new
-      ? parseInt($(`#${cloudUI.saveProjectClassroomSelect}`).val())
+      ? $(`#${cloudUI.saveProjectClassroomSelect}`).val() == "Choose..."
+        ? null
+        : parseInt($(`#${cloudUI.saveProjectClassroomSelect}`).val())
       : currentProject.classroom;
 
     if (currentProject.new || currentProject.id == "") {
@@ -642,8 +649,8 @@ function dataURItoBlob(dataURI, type) {
 function dataToBlob(data, type) {
   let data_str;
   if (type.includes("image")) {
-    data_str = data.toDataURL();
-    return dataURItoBlob(data_str, "image/png");
+    // data_str = data.toDataURL();
+    return dataURItoBlob(data, "image/png");
   } else {
     data_str = serializeData(data);
     return new Blob([data_str], {
@@ -653,7 +660,8 @@ function dataToBlob(data, type) {
 }
 
 function serializeData(data) {
-  return JSON.stringify(data.map((b) => b.serialize()));
+  return JSON.stringify(data);
+  // return JSON.stringify(data.map((b) => b.serialize()));
 }
 
 /**
@@ -868,6 +876,7 @@ function emptyClassroomList() {
     .empty()
     .append("<option>Choose...</option>");
 }
+
 function updateSignOutPrompt(status) {
   // Hide the loading indicator
 

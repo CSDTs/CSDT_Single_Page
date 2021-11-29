@@ -1,42 +1,38 @@
-var elt = document.getElementById("calculator");
-var calculator = Desmos.GraphingCalculator(elt);
-
-const equationInput = document.getElementById("equation");
-const equationStartX = document.getElementById("start-x");
-const equationEndX = document.getElementById("end-x");
-const equationRadius = document.getElementById("radius");
-const drawEquationBtn = document.getElementById("drawEquation");
-const equationTemplate = document.getElementById("equationExamples");
-const linearParameters = document.getElementById("linearParameters");
-const circleParameters = document.getElementById("circleParameters");
 let equationCount = 0;
 let currentTemplate = "linear";
 calculator.setExpression({
-  id: "0",
+  id: "a",
   latex: "x^2+(y+9)^2=36",
   lineWidth: 10,
 });
 calculator.setExpression({
-  id: "1",
+  id: "b",
   latex: "y=1.6x+7\\left\\{-6<x<0\\right\\}",
   lineWidth: 10,
+  color: Desmos.Colors.BLUE,
 });
 calculator.setExpression({
-  id: "2",
+  id: "c",
   latex: "y=-3\\left\\{-6<x<6\\right\\}",
   lineWidth: 10,
+  color: Desmos.Colors.BLUE,
 });
 calculator.setExpression({
-  id: "3",
+  id: "d",
   latex: "y=-1.6x+7\\left\\{0<x<6\\right\\}",
   lineWidth: 10,
+  color: Desmos.Colors.BLUE,
 });
+
 function drawEquation(equation) {
+  equation = cleanEquation(equation);
   if (equationTemplate.value == "circle") {
     let radius = equationRadius.value;
     calculator.setExpression({
       id: equationCount,
       latex: `${equation}`,
+      lineWidth: 10,
+      color: Desmos.Colors.BLUE,
     });
   } else {
     linearParameters.hidden = false;
@@ -46,10 +42,45 @@ function drawEquation(equation) {
     calculator.setExpression({
       id: equationCount,
       latex: `${equation}\\left\\{${startX}<x<${endX}\\right\\}`,
+      lineWidth: 10,
+      color: Desmos.Colors.BLUE,
     });
   }
 
   equationCount++;
+}
+
+function cleanEquation(equation) {
+  let cleanEquation = equation;
+  cleanEquation = cleanEquation.replaceAll("pi", "\\pi");
+
+  cleanEquation = cleanEquation.replaceAll("arcsin(", "\\arcsin(");
+  cleanEquation = cleanEquation.replaceAll("arccos(", "\\arccos(");
+  cleanEquation = cleanEquation.replaceAll("arctan(", "\\arctan(");
+  cleanEquation = cleanEquation.replaceAll("arccot(", "\\arccot(");
+  cleanEquation = cleanEquation.replaceAll("arcsec(", "\\arcsec(");
+  cleanEquation = cleanEquation.replaceAll("arccsc(", "\\arccsc(");
+
+  cleanEquation = cleanEquation.replaceAll("ln(", "\\ln(");
+  cleanEquation = cleanEquation.replaceAll("log(", "\\log(");
+
+  cleanEquation = cleanEquation.replaceAll("sin(", "\\sin(");
+  cleanEquation = cleanEquation.replaceAll("cos(", "\\cos(");
+  cleanEquation = cleanEquation.replaceAll("tan(", "\\tan(");
+  cleanEquation = cleanEquation.replaceAll("cot(", "\\cot(");
+  cleanEquation = cleanEquation.replaceAll("sec(", "\\sec(");
+  cleanEquation = cleanEquation.replaceAll("csc(", "\\csc(");
+
+  cleanEquation = cleanEquation.replaceAll("arc\\sin(", "arcsin(");
+  cleanEquation = cleanEquation.replaceAll("arc\\cos(", "arccos(");
+  cleanEquation = cleanEquation.replaceAll("arc\\tan(", "arctan(");
+  cleanEquation = cleanEquation.replaceAll("arc\\cot(", "arccot(");
+  cleanEquation = cleanEquation.replaceAll("arc\\sec(", "arcsec(");
+  cleanEquation = cleanEquation.replaceAll("arc\\csc(", "arccsc(");
+
+  cleanEquation = cleanEquation.replaceAll("sqrt", "\\sqrt");
+
+  return cleanEquation;
 }
 
 drawEquationBtn.addEventListener("click", (e) => {
@@ -73,9 +104,9 @@ equationExamples.addEventListener("change", (e) => {
  * consistent for years...
  *
  */
-function createBraidGallery() {
+function createSymbolGallery() {
   // Current number of images available for the gallery
-  let numOfImages = 4;
+  let numOfImages = 47;
   for (let i = 0; i < numOfImages; i++) {
     // DOM element creation
     let parentContainer = goalImageContainer;
@@ -102,10 +133,16 @@ function createBraidGallery() {
   }
 }
 
-$(appReferences.clearEquationsBtn).on("click", () => {
-  let equations = calculator.getExpressions();
-  equations.forEach(function (state) {
-    calculator.removeExpression(state);
-  });
-  // calculator.clearHistory();
+function loadFromJSON(data) {
+  calculator.setState(data);
+}
+
+equationInput.addEventListener("keyup", (e) => {
+  console.log(e.target.value);
 });
+
+function switchTemplate(context) {
+  context = context.split(" ").join("");
+  if (context.indexOf("y=") > -1) return "linear";
+  if (context.indexOf("r^2") > -1) return "circular";
+}

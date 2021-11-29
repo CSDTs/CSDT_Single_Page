@@ -111,7 +111,7 @@
           <button id="clearEquations" type="button" class="btn btn-link btn-sm">Clear</button>
 
           <!-- Saving options -->
-          <div class="dropdown" hidden>
+          <div class="dropdown">
             <button id="saveDropdown" type="button" class="btn btn-link btn-sm dropdown-toggle" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
               Save
@@ -125,7 +125,7 @@
           </div>
 
           <!-- Loading options -->
-          <div class="dropdown" hidden>
+          <div class="dropdown">
             <button class="btn btn-link dropdown-toggle btn-sm" type="button" id="dropdownMenuButton"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Load
@@ -176,7 +176,7 @@
 
         <figure>
           <img src="./img/braids/adinkra-1.png" class="img-fluid" id="goal-image" data-toggle="modal"
-            data-target="#braidGallery">
+            data-target="#symbolGallery">
           <figcaption class="text-center">Click for more symbols</figcaption>
         </figure>
 
@@ -187,9 +187,10 @@
             <fieldset class="mb-3">
               <legend>Select equation template:</legend>
               <div class="single-line-group">
+
                 <select class="form-control form-control-sm" name="equationExamples" id="equationExamples">
-                  <option value="linear"><strong>Linear</strong>: y=f(x)</option>
-                  <option value="circle">Circle: x^2+y^2=r^2</option>
+                  <option value="linear">Linear -- y=f(x)</option>
+                  <option value="circle">Circle -- x^2+y^2=r^2</option>
                 </select>
               </div>
             </fieldset>
@@ -207,8 +208,6 @@
                 Define starting parameters:
               </legend>
 
-              <!-- <label>Starting Coordinates (x,y):</label> -->
-              <!-- Starting Position -->
               <div class="coordinate-input-group" id='linearParameters'>
                 <div class="input-group mb-3 input-group-sm">
                   <div class="input-group-prepend">
@@ -240,14 +239,14 @@
 
               <!-- Starting Dilation -->
               <div class="single-line-group" id='circleParameters' hidden>
-                <p>To be added later...</p>
-                <!-- <div class="input-group mb-3 input-group-sm">
+                <!-- <p>To be added later...</p> -->
+                <div class="input-group mb-3 input-group-sm">
                   <label for="radius">Radius (r):</label>
                 </div>
                 <div class="input-group mb-3 input-group-sm">
                   <input id="radius" autocomplete="off" value="36" type="number" class="form-control"
                     placeholder="e.g. 36" aria-label="Starting Radius">
-                </div> -->
+                </div>
               </div>
 
             </fieldset>
@@ -270,6 +269,16 @@
                 Delete
               </button>
             </div>
+            <div class="col-md-6  mt-2">
+              <button id="undo" type="button" class="btn btn-outline-info btn-sm btn-block">
+                Undo
+              </button>
+            </div>
+            <div class="col-md-6 mt-2">
+              <button id="redo" type="button" class="btn btn-info btn-sm btn-block">
+                Redo
+              </button>
+            </div>
           </div>
           <label for="braid-select" class="mt-4" hidden>Current Braid: </label>
           <div class="input-group mb-3 input-group-sm" hidden>
@@ -290,17 +299,17 @@
 
 
   <!-- Braid Gallery: Allows the user to browse and select an image to use alongside the braid app -->
-  <div class="modal fade" id="braidGallery" tabindex="-1" aria-labelledby="braidGalleryLabel" aria-hidden="true">
+  <div class="modal fade" id="symbolGallery" tabindex="-1" aria-labelledby="symbolGalleryLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="braidGalleryLabel">Select an image</h5>
+          <h5 class="modal-title" id="symbolGalleryLabel">Select an image</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <div id='braidGalleryContainer' class="row"></div>
+          <div id='symbolGalleryContainer' class="row"></div>
         </div>
         <div class="modal-footer">
           <div>
@@ -568,12 +577,12 @@
   <!--	<script src="./js/helpers.js"></script>
 	<script src="./js/braid.js"></script> -->
   <script src="./js/online.js"></script>
-  <!-- <script src="./js/events.js"></script>-->
+  <script src="./js/events.js"></script>
   <script src="./js/main.js"></script>
   <script>
     //switchApplications(beadLoomApp);
     initCloudServices();
-    createBraidGallery();
+    createSymbolGallery();
     setLoadingOverlay(true, false);
   </script>
 </body>
