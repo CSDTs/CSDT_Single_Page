@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>Cornrow Curves Mathematics</title>
+	<title>Cornrow Curves Mathematics | CSDT</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1">
@@ -19,11 +19,9 @@
 
 	<!-- Main CSS -->
 	<link rel="stylesheet" href="./css/main.css">
-	<link rel="stylesheet" href="../cloud/css/main.css">
 </head>
 
-<body onresize="loadCanvas()">
-
+<body>
 	<!-- Loading overlay that lets the user know that the application is still loading.  -->
 	<div class="loading-overlay">
 		<div class="loading-container pt-3">
@@ -39,10 +37,10 @@
 			<!-- CSDT and NSF logos -->
 			<div class="navbar-brand">
 				<a href="http://www.nsf.gov">
-					<img src="../cloud/img/nsf.gif" width="40" class="logo-img" alt="">
+					<img src="./img/nsf.gif" width="40" class="logo-img" alt="">
 				</a>
 				<a href="/">
-					<img src="../cloud/img/logo.svg" width="100" class="logo-img" alt="">
+					<img src="./img/logo.svg" width="100" class="logo-img" alt="">
 				</a>
 			</div>
 
@@ -81,13 +79,21 @@
 							<a class="dropdown-item" href="#" id='navUserProjects'>My Projects</a>
 							<a class="dropdown-item" href="#" id='navUserClassrooms'>My Classrooms</a>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#" id="navSignOut" data-toggle='modal'
-								data-target='#signOutPrompt' hidden>Not you?
+							<a class="dropdown-item" href="#" id="navSignOut" data-toggle='modal' data-target='#signOutPrompt'
+								hidden>Not you?
 								(LOGOUT)</a>
 						</div>
 					</li>
-
+					<li class="nav-item">
+						<a class="nav-link nav-link--help" href="/help/index.html">
+							<i class="far fa-question-circle"></i>
+						</a>
+						<a class="nav-link nav-link--help--mobile" href="/help/index.html">
+							<i class="far fa-question-circle"></i> Help
+						</a>
+					</li>
 				</ul>
+
 			</div>
 		</div>
 
@@ -100,14 +106,14 @@
 			<div id="canvas-container" class="col-6">
 
 				<!-- Application navigation -->
-				<nav>
-					<button id="printAppPage" type="button" class="btn btn-link btn-sm">Print</button>
+				<nav class="d-flex">
+
 					<button id="clearBraids" type="button" class="btn btn-link btn-sm">Clear</button>
 
 					<!-- Saving options -->
 					<div class="dropdown">
-						<button id="saveDropdown" type="button" class="btn btn-link btn-sm dropdown-toggle"
-							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<button id="saveDropdown" type="button" class="btn btn-link btn-sm dropdown-toggle" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false">
 							Save
 						</button>
 						<div class="dropdown-menu" aria-labelledby="saveDropdown">
@@ -139,9 +145,10 @@
 					<div id="more-options" class="dropdown">
 						<button class="btn btn-link dropdown-toggle btn-sm" type="button" id="dropdownMenuButton"
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							More Options
+							Options
 						</button>
 						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<a id="printAppPage" class="dropdown-item">Print</a>
 							<a id="addAtCurrentPoint" class="dropdown-item">Add Braid at Current
 								Point</a>
 							<a id="hideGrid" class="dropdown-item">Hide Grid</a>
@@ -154,6 +161,10 @@
 						</div>
 					</div>
 
+					<!-- Current status of the application -->
+					<span id="visibleModifiedStatus" class="ml-auto text-muted small align-self-center">
+						<strong></strong>
+					</span>
 				</nav>
 
 				<!-- Where the users will see their braids  -->
@@ -163,157 +174,159 @@
 
 			</div>
 
-			<!-- Where the users will manupliate their braids  -->
+			<!-- Where the users will manipulate their braids  -->
 			<div id="data-container" class="col-6">
-
-				<h3>Cornrow Curves Software</h3>
+				<h3 id="application-title" class="text-center mb-3">Cornrow Curves Mathematics</h3>
 
 				<div class="row">
 
 					<form id="data-form" class="col-6">
 
-						<!-- Iteration Form Group -->
-						<div class="form-group row">
-							<strong>Enter Number of Plaits:</strong>
-
+						<fieldset class="mb-1">
+							<legend>Enter number of plaits:</legend>
 							<!-- Number of Iterations -->
-							<div class="single-line-group">
+							<div class=" single-line-group">
 								<div class="input-group mb-3 input-group-sm">
-									<p class="figure-caption">Iterate (integer):</p>
+									<label for="iterations">Iterate (integer):</label>
 								</div>
-								<div class="input-group mb-3 input-group-sm col-5 pr-0">
-									<input id="iterations" autocomplete="off" value="16" type="number"
-										class="form-control" placeholder="e.g. 16" aria-label="iterations"
-										aria-describedby="iterations-addon" min="0">
+								<div class="input-group mb-3 input-group-sm">
+									<input id="iterations" autocomplete="off" value="16" type="number" class="form-control"
+										placeholder="e.g. 16" aria-label="Plait iterations" min="0">
 								</div>
 							</div>
-						</div>
+						</fieldset>
+						<fieldset>
+							<legend>
+								Define starting parameters:
+							</legend>
 
-						<!-- Starting Parameters Form Group -->
-						<div class="form-group row">
-							<strong>Define Starting Parameters:</strong>
-							<p class="figure-caption">Starting Coordinates (x,y):</p>
-
+							<label>Starting Coordinates (x,y):</label>
 							<!-- Starting Position -->
 							<div class="coordinate-input-group">
 								<div class="input-group mb-3 input-group-sm">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="start-x-addon">X<span>
 									</div>
-									<input id="start-x" autocomplete="off" value="-142" type="number"
-										class="form-control" placeholder="e.g. -142" aria-label="start-x">
+									<input id="start-x" autocomplete="off" value="-142" type="number" class="form-control"
+										placeholder="e.g. -142" aria-label="Starting X Value">
 								</div>
 								<div class="input-group mb-3 input-group-sm">
 									<div class="input-group-prepend">
 										<span class="input-group-text" id="start-y-addon">Y</span>
 									</div>
-									<input id="start-y" autocomplete="off" value="140" type="number"
-										class="form-control" placeholder="e.g. 140" aria-label="start-y">
+									<input id="start-y" autocomplete="off" value="140" type="number" class="form-control"
+										placeholder="e.g. 140" aria-label="Starting Y Value">
 								</div>
 							</div>
 
 							<!-- Starting Angle -->
 							<div class="single-line-group">
 								<div class="input-group mb-3 input-group-sm">
-									<p class="figure-caption">Starting Angle (deg):</p>
+									<label for="start-angle">Angle (degrees):</label>
 								</div>
-								<div class="input-group mb-3 input-group-sm col-5 pr-0">
-									<input id="start-angle" autocomplete="off" value="0" type="number"
-										class="form-control" placeholder="e.g. 0" aria-label="start-angle">
+								<div class="input-group mb-3 input-group-sm">
+									<input id="start-angle" autocomplete="off" value="0" type="number" class="form-control"
+										placeholder="e.g. 0" aria-label="Starting Angle">
 								</div>
 							</div>
+
 
 							<!-- Starting Dilation -->
 							<div class="single-line-group">
 								<div class="input-group mb-3 input-group-sm">
-									<p class="figure-caption">Starting Dilation (%):</p>
+									<label for="start-dilation">Dilation (%):</label>
 								</div>
-								<div class="input-group mb-3 input-group-sm col-5 pr-0">
-									<input id="start-dilation" autocomplete="off" value="161" type="number"
-										class="form-control" placeholder="e.g. 161" aria-label="start-dilation">
+								<div class="input-group mb-3 input-group-sm">
+									<input id="start-dilation" autocomplete="off" value="161" type="number" class="form-control"
+										placeholder="e.g. 161" aria-label="Starting Dilation">
 								</div>
 							</div>
 
 							<!-- X Y Reflection -->
 							<div class="single-line-group reflection-group">
 								<div class="input-group mb-3 input-group-sm">
-									<p class="figure-caption">Starting Reflection:</p>
+									<label> Reflection:</label>
 								</div>
-								<div class="input-group mb-3 input-group-sm align-self-center">
-									<div class="single-line-group pr-0">
-										<span class="d-inline-flex pr-2 ">X </span> <input id="reflectx"
-											class="d-inline-flex align-self-center" type="checkbox" name="reflectx">
+								<div class="input-group mb-3 input-group-sm justify-content-around">
+									<div class="single-line-group align-items-center">
+										<span class="pr-2">X </span>
+										<input id="reflectx" type="checkbox" name="reflectx">
 									</div>
-									<div class="single-line-group pr-0">
-										<span class="d-inline-flex pr-2">Y </span> <input id="reflecty"
-											class="d-inline-flex align-self-center" type="checkbox" name="reflecty">
+									<div class="single-line-group align-items-center">
+										<span class="pr-2">Y </span>
+										<input id="reflecty" type="checkbox" name="reflecty">
 									</div>
 								</div>
 							</div>
-						</div>
+						</fieldset>
 
-						<!-- Iteration Parameters Form Group -->
-						<div class="form-group row">
-							<strong>Define Iteration Parameters:</strong>
+						<fieldset>
+							<legend>
+								Define iteration parameters:
+							</legend>
 
 							<!-- Translate Iteration -->
 							<div class="single-line-group">
 								<div class="input-group mb-3 input-group-sm">
-									<p class="figure-caption">Translate (%):</p>
+									<label for="x-translation">Translate (%):</label>
 								</div>
-								<div class="input-group mb-3 input-group-sm col-5 pr-0">
-									<input id="x-translation" autocomplete="off" value="50" type="number"
-										placeholder="e.g. 50" class="form-control" aria-label="x-translation">
+								<div class="input-group mb-3 input-group-sm">
+									<input id="x-translation" autocomplete="off" value="50" type="number" placeholder="e.g. 50"
+										class="form-control" aria-label="Plait translation percentage">
 								</div>
 							</div>
+
+
 							<!-- Rotation Iteration -->
 							<div class="single-line-group">
 								<div class="input-group mb-3 input-group-sm">
-									<p class="figure-caption">Rotate (deg):</p>
+									<label for="rotation">Rotate (degrees):</label>
 								</div>
-								<div class="input-group mb-3 input-group-sm col-5 pr-0">
-									<input id="rotation" autocomplete="off" value="-2" type="number"
-										class="form-control" placeholder="e.g. -2" aria-label="rotation">
+								<div class="input-group mb-3 input-group-sm">
+									<input id="rotation" autocomplete="off" value="-2" type="number" class="form-control"
+										placeholder="e.g. -2" aria-label="Plait rotation">
 								</div>
 							</div>
 							<!-- Dilation Iteration -->
 							<div class="single-line-group">
 								<div class="input-group mb-3 input-group-sm">
-									<p class="figure-caption">Dilate (%):</p>
+									<label for="dilation">Dilate (%):</label>
 								</div>
-								<div class="input-group mb-3 input-group-sm col-5 pr-0">
-									<input id="dilation" autocomplete="off" value="97" type="number"
-										class="form-control" placeholder="e.g. 97" aria-label="dilation">
+								<div class="input-group mb-3 input-group-sm">
+									<input id="dilation" autocomplete="off" value="97" type="number" class="form-control"
+										placeholder="e.g. 97" aria-label="Plait dilation percentage">
 								</div>
 							</div>
-						</div>
+						</fieldset>
+
 					</form>
 
 
-					<div class="col-6" id="braid-control">
-						<img src="./img/cc-1.jpg" class="img-fluid" id="goal-image" data-toggle="modal"
-							data-target="#braidGallery">
-						<br>
-						<p class="figure-caption text-center">Click for more images</p>
+					<section class="col-6" id="braid-control">
+						<figure>
+							<img src="./img/braids/cc-1.jpg" class="img-fluid" id="goal-image" data-toggle="modal"
+								data-target="#braidGallery">
+							<figcaption class="text-center">Click for more images</figcaption>
+						</figure>
 
-						<div class="row">
-							<div class="col-md-12 mb-3">
+						<div class="row mt-3">
+							<div class="col-md-12">
 								<button id="new-braid" type="button" class="btn btn-success btn-sm btn-block">
 									Add Braid
 								</button>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-6  mt-2">
 								<button id="reset-braid" type="button" class="btn btn-info btn-sm btn-block">
 									Reset Current Braid
 								</button>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-6 mt-2">
 								<button id="delete-braid" type="button" class="btn btn-danger btn-sm btn-block">
 									Delete Selected Braid
 								</button>
 							</div>
 						</div>
-						<p class="current-braid mt-4">Current Braid: </p>
+						<label for="braid-select" class="mt-4">Current Braid: </label>
 						<div class="input-group mb-3 input-group-sm">
 							<select class="form-control" id="braid-select">
 								<option selected>Choose...</option>
@@ -323,7 +336,7 @@
 							</select>
 						</div>
 						<span id="showCoordinates"></span>
-					</div>
+					</section>
 				</div>
 			</div>
 
@@ -374,15 +387,15 @@
 					<h5 class="modal-title" id="signInPromptLabel">Welcome back!</h5>
 				</div>
 				<div id='signInLoader' class="loader d-none" title="0">
-					<svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg"
-						xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100px" height="100px"
-						viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">
+					<svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+						x="0px" y="0px" width="100px" height="100px" viewBox="0 0 40 40" enable-background="new 0 0 40 40"
+						xml:space="preserve">
 						<path opacity="0.2" fill="#000"
 							d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
-					  s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
-					  c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z" />
+					s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
+					c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z" />
 						<path fill="#000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
-					  C22.32,8.481,24.301,9.057,26.013,10.047z">
+					C22.32,8.481,24.301,9.057,26.013,10.047z">
 							<animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 20 20"
 								to="360 20 20" dur="0.5s" repeatCount="indefinite" />
 						</path>
@@ -401,11 +414,11 @@
 						</div>
 						<div class="form-group">
 							<div class="input-group" id="show_hide_password">
-								<input autocomplete="off" type="password" id="passwordField" class="form-control"
-									placeholder="Password" aria-describedby="show_hide_password-addon">
+								<input autocomplete="off" type="password" id="passwordField" class="form-control" placeholder="Password"
+									aria-describedby="show_hide_password-addon">
 								<div class="input-group-append">
-									<span class="input-group-text" id="show_hide_password-addon"><i
-											class="fas fa-eye-slash" id='passwordEye' aria-hidden="true"></i></span>
+									<span class="input-group-text" id="show_hide_password-addon"><i class="fas fa-eye-slash"
+											id='passwordEye' aria-hidden="true"></i></span>
 								</div>
 							</div>
 						</div>
@@ -435,15 +448,15 @@
 					<h5 class="modal-title" id="signOutPromptLabel">Signing out</h5>
 				</div>
 				<div id='signOutLoader' class="loader d-none" title="0">
-					<svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg"
-						xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100px" height="100px"
-						viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">
+					<svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+						x="0px" y="0px" width="100px" height="100px" viewBox="0 0 40 40" enable-background="new 0 0 40 40"
+						xml:space="preserve">
 						<path opacity="0.2" fill="#000"
 							d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
-					  s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
-					  c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z" />
+					s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
+					c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z" />
 						<path fill="#000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
-					  C22.32,8.481,24.301,9.057,26.013,10.047z">
+					C22.32,8.481,24.301,9.057,26.013,10.047z">
 							<animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 20 20"
 								to="360 20 20" dur="0.5s" repeatCount="indefinite" />
 						</path>
@@ -485,11 +498,29 @@
 							</div>
 							<div class="col-md-8">
 								<div class="form-group">
-									<input type="text" class="form-control" id='projectNameField'
-										placeholder="My Cool Design" value="Untitled Project">
+									<input type="text" class="form-control" id='projectNameField' placeholder="My Cool Design"
+										value="Untitled Project">
 								</div>
 							</div>
 						</div>
+
+						<div class="row">
+							<div class="col-md-4">
+								<div>
+									<p>Classroom</p>
+								</div>
+							</div>
+							<div class="col-md-8">
+								<div class="form-group">
+									<select class="form-control" id='saveProjectClassroomSelect'>
+										<option selected>Choose...</option>
+									</select>
+
+								</div>
+							</div>
+						</div>
+
+
 					</form>
 				</div>
 				<div class="modal-footer">
@@ -520,37 +551,20 @@
 				<div class="modal-body">
 					<form>
 						<div class="row">
-							<div class="col-md-4 align-self-center">
-								<div>
-									<p>Select Project</p>
-								</div>
-							</div>
-							<div class="col-md-8 text-center">
-								<strong id="loadProjectPromptMsg">Sign in to view your projects.</strong>
-								<div id="loadProjectLoader" class="loader d-none" title="0">
-									<svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg"
-										xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100px"
-										height="100px" viewBox="0 0 40 40" enable-background="new 0 0 40 40"
-										xml:space="preserve">
-										<path opacity="0.2" fill="#000"
-											d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
-                                      s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
-                                      c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z" />
-										<path fill="#000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
-                                      C22.32,8.481,24.301,9.057,26.013,10.047z">
-											<animateTransform attributeType="xml" attributeName="transform"
-												type="rotate" from="0 20 20" to="360 20 20" dur="0.5s"
-												repeatCount="indefinite" />
-										</path>
-									</svg>
-								</div>
-								<select class="form-control" id='loadProjectList' hidden>
-									<option selected>Choose...</option>
-								</select>
-							</div>
+							<div class="col-md-7" id="loadProjectComponent"></div>
+							<aside class="col-md-5" id="detailsProjectComponent" hidden>
+								<p><strong>Details</strong></p>
+								<img id="loadProjectPreview" src="" alt="" class="img-fluid rounded" hidden>
+								<!-- <p class="text-muted small">Created on: </p>
+															<strong id="loadProjectCreatedDate" class="text-muted "
+																	style="font-size: small"></strong> -->
+								<p class="text-muted small">Last updated:</p>
+								<strong id="loadProjectModifiedDate" class="text-muted " style="font-size: small"></strong>
+								<p class="text-muted small">Classroom: </p>
+								<strong id="loadProjectClassroom" class="text-muted" style="font-size: small"></strong>
+							</aside>
 						</div>
 					</form>
-
 				</div>
 				<div class="modal-footer">
 					<div>
@@ -560,7 +574,7 @@
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 						<button id="loadProjectSignIn" type="button" class="btn btn-primary" data-toggle="modal"
 							data-target="#signInPrompt">Login to Load</button>
-						<button id="loadUserProject" type="button" class="btn btn-success" disabled>Load</button>
+						<button id="loadUserProject" type="button" class="btn btn-success">Load</button>
 					</div>
 				</div>
 			</div>
@@ -592,21 +606,28 @@
 
 
 
-	<!-- JQuery 3.4.1 -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+		integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
-	<!-- Bootstrap 4 JS Scripts-->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+		integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
 	</script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
 	</script>
 
 	<!-- Main Cloud and JS file -->
-	<script src="../cloud/js/main.js"></script>
+	<!-- <script src="../cloud/js/main.js"></script> -->
+	<script src="./js/variables.js"></script>
+	<script src="./js/helpers.js"></script>
+	<script src="./js/braid.js"></script>
+	<script src="./js/online.js"></script>
+	<script src="./js/events.js"></script>
 	<script src="./js/main.js"></script>
-
+	<script>
+		//switchApplications(beadLoomApp);
+		initApplication();
+	</script>
 </body>
 
 </html>
