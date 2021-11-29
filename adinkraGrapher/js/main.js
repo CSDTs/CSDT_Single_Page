@@ -26,8 +26,10 @@ calculator.setExpression({
 
 function drawEquation(equation) {
   equation = cleanEquation(equation);
-  if (equationTemplate.value == "circle") {
+  if (currentTemplate == "circular") {
     let radius = equationRadius.value;
+    equation = equation.replace("r^2", `${Math.pow(radius, 2)}`);
+
     calculator.setExpression({
       id: equationCount,
       latex: `${equation}`,
@@ -35,8 +37,6 @@ function drawEquation(equation) {
       color: Desmos.Colors.BLUE,
     });
   } else {
-    linearParameters.hidden = false;
-    circleParameters.hidden = true;
     let startX = equationStartX.value;
     let endX = equationEndX.value;
     calculator.setExpression({
@@ -89,8 +89,8 @@ drawEquationBtn.addEventListener("click", (e) => {
 
 equationExamples.addEventListener("change", (e) => {
   let current = e.target.selectedOptions[0].value;
-  linearParameters.hidden = current == "linear" ? false : true;
-  circleParameters.hidden = current == "circle" ? false : true;
+  equationInput.value = current;
+  switchTemplate(current);
 });
 
 // Braid Gallery
@@ -106,7 +106,7 @@ equationExamples.addEventListener("change", (e) => {
  */
 function createSymbolGallery() {
   // Current number of images available for the gallery
-  let numOfImages = 47;
+  let numOfImages = 51;
   for (let i = 0; i < numOfImages; i++) {
     // DOM element creation
     let parentContainer = goalImageContainer;
@@ -138,11 +138,25 @@ function loadFromJSON(data) {
 }
 
 equationInput.addEventListener("keyup", (e) => {
-  console.log(e.target.value);
+  switchTemplate(e.target.value);
 });
 
 function switchTemplate(context) {
   context = context.split(" ").join("");
-  if (context.indexOf("y=") > -1) return "linear";
-  if (context.indexOf("r^2") > -1) return "circular";
+
+  if (context.indexOf("y=") > -1 && context.length > 2) {
+    linearParameters.hidden = false;
+    circleParameters.hidden = true;
+    currentTemplate = "linear";
+  } else if (context.indexOf("r^2") > -1 && context.length > 4) {
+    linearParameters.hidden = true;
+    circleParameters.hidden = false;
+    currentTemplate = "circular";
+  } else {
+    linearParameters.hidden = true;
+    circleParameters.hidden = true;
+    currentTemplate = "linear";
+  }
+
+  console.log(currentTemplate);
 }
