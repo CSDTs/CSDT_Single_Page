@@ -181,6 +181,8 @@ class Wheel {
     // Then, create the 'Repeat' input field, and add it to the panel
     this.createRepeatField();
 
+    this.createNumOfCurrentBeats();
+
     // Append the finished control panel to the sidebar
     document
       .getElementById(appReferences.wheelControlsContainer)
@@ -237,6 +239,18 @@ class Wheel {
 
     // Make the list of options available to the 'setNumOfBeats' method
     this.beatCountSelect.selectOptions = beatCountOptions;
+  }
+
+  createNumOfCurrentBeats() {
+    // If the wheel is a recording wheel, skip
+    if (this.recordingWheel) return;
+
+    //Create the field label
+    this.currentBeatCountLabel = document.createElement("label");
+    this.currentBeatCountLabel.innerHTML = "Heard so far: <strong>0</strong>";
+    this.currentBeatCountContainer = document.createElement("div");
+    this.currentBeatCountContainer.appendChild(this.currentBeatCountLabel);
+    this.controlPanel.appendChild(this.currentBeatCountContainer);
   }
 
   /**
@@ -447,6 +461,9 @@ class Wheel {
         currentPos - Math.floor(currentPos) < 0.7
       );
       this.currentNode = currentPos;
+      this.currentBeatCountLabel.innerHTML = `Heard so far: <strong>${this.currentNode.toFixed(
+        0
+      )}</strong>`;
     }
 
     // updates notes
