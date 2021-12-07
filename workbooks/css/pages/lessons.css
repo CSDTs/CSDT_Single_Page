@@ -1,0 +1,259 @@
+#lessonHeader {
+  color: #e8e8e9;
+  padding: 1.2rem;
+}
+
+#lessonHeader h5,
+#lessonHeader h2,
+#lessonHeader p {
+}
+
+h3 {
+  color: #e8e8e9;
+  font-size: 1.4rem;
+}
+
+.list-item-csdt {
+  color: #e8e8e9;
+}
+
+.workbook-lesson,
+.workbook-header,
+.workbook-subheader {
+  color: #ddddde;
+}
+
+.workbook-header {
+  font-size: 1.2rem;
+  line-height: 1rem;
+}
+
+.section-header:not(.section-header:last-child) {
+  margin-bottom: 1.25rem;
+}
+
+.workbook-lesson {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.workbook-collapse-row {
+  /* background: #3d3e4a; */
+}
+
+.wb-info p {
+  margin-top: 0;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-size: 1rem;
+}
+
+.wb-info {
+}
+
+#data-container > form > h5 {
+  color: #e8e8e9;
+  /* padding: 1.2rem; */
+}
+
+p {
+  color: #b8b7ba;
+}
+
+p.text-lesson {
+  display: inline-flex;
+  color: #0092ed;
+  font-size: 1rem;
+  line-height: 0.85rem;
+}
+
+body {
+  background-color: #202029;
+  height: 100vh;
+}
+#data-container {
+  display: flex;
+  background-color: #2a2b36;
+  flex-direction: column;
+  height: 100%;
+}
+
+@keyframes growcircularprogress {
+  0%,
+  33% {
+    --pgPercentage: 0;
+  }
+  100% {
+    --pgPercentage: var(--value);
+  }
+}
+
+@property --pgPercentage {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+div[role="circularprogress"] {
+  --size: 3rem;
+  --fg: #0092ed;
+  --bg: #3b3c48;
+  --pgPercentage: var(--value);
+  animation: growcircularprogress 3s 1 forwards;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(
+      closest-side,
+      #2a2b36 80%,
+      transparent 0 99.9%,
+      #2a2b36 0
+    ),
+    conic-gradient(var(--fg) calc(var(--pgPercentage) * 1%), var(--bg) 0);
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: calc(var(--size) / 3.5);
+  color: var(--fg);
+  box-shadow: 0 0 1px 0px #2a2b36 inset, 0 0 1px 0px #2a2b36;
+  border: 1px solid #2a2b36;
+}
+
+div[role="circularprogress"]::before {
+  counter-reset: percentage var(--value);
+  content: counter(percentage) "%";
+}
+
+.fa-chevron-right,
+.chevron {
+  color: #e8e8e9;
+  align-self: center;
+
+  margin-left: auto;
+}
+
+.fa-chevron-right.show {
+  color: #0092ed;
+}
+.fa-trophy {
+  color: #0092ed !important;
+}
+.response-div {
+  padding: 1.2rem;
+}
+
+.progress {
+  height: 0.5rem;
+}
+
+#lessonSelection {
+  /* height: 300px; */
+  overflow-y: scroll;
+  background-color: #2a2b36;
+}
+
+.step-h {
+  font-size: 0.85rem;
+  color: #e8e8e9;
+}
+
+hr.workbook-divide {
+  width: 75%;
+  text-align: left;
+
+  border-image: linear-gradient(to right, #0092ed, transparent) 1;
+}
+
+/* Status Divs (Those circles next to the lessons) */
+div.w-finished {
+  border-radius: 50px;
+  width: 20px;
+  height: 20px;
+  background: #49ad49;
+  border: 1px solid #eeeeee;
+}
+
+div.w-link {
+  border-radius: 50px;
+  width: 20px;
+  height: 20px;
+  background: #1f89dd;
+  border: 1px solid #eeeeee;
+}
+
+div.w-pending {
+  border-radius: 50px;
+  width: 20px;
+  height: 20px;
+  background: #e2e2e2;
+  border: 1px solid #eeeeee;
+}
+
+div.w-start {
+  border-radius: 50px;
+  width: 50px;
+  height: 50px;
+  background: #e2e2e2;
+  border: 1px solid #eeeeee;
+  text-align: center;
+  font-size: x-large;
+  padding-top: 6.25px;
+}
+
+.workbook-lesson > b,
+.workbook-lesson > s {
+  color: #1f89dd;
+}
+
+.workbook-collapse {
+  background: #3b3c48;
+}
+
+.chevron,
+.fa-chevron-right {
+  display: inline-block;
+  /* margin: 1rem; */
+  margin-left: auto;
+  vertical-align: middle;
+  color: #3b3c48;
+  -moz-transition: all 0.2s linear;
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+.chevron.down,
+.fa-chevron-right.down {
+  -moz-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+  color: #1f89dd;
+}
+.chevron {
+  width: 18px;
+  height: 15px;
+}
+/* .chevron__group {
+  transform: translateY(0);
+  transition: transform 0.1s linear;
+}
+.chevron__box--left,
+.chevron__box--right {
+  transform: rotate(0) translateY(0);
+  transition: transform 0.1s linear;
+}
+.chevron__box--left {
+  transform-origin: 1px 1px;
+}
+.chevron__box--right {
+  transform-origin: 7px 1px;
+}
+.chevron--flip .chevron__box--left {
+  transform: rotate(-90deg) translateY(0);
+}
+.chevron--flip .chevron__box--right {
+  transform: rotate(90deg) translateY(0);
+}
+.chevron--flip .chevron__group {
+  transform: translateY(3px);
+} */
