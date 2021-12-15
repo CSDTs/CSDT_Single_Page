@@ -247,6 +247,7 @@ class Wheel {
 
     //Create the field label
     this.currentBeatCountLabel = document.createElement("label");
+    this.currentBeatCountLabel.classList.add("heard");
     this.currentBeatCountLabel.innerHTML = "Heard so far: <strong>0</strong>";
     this.currentBeatCountContainer = document.createElement("div");
     this.currentBeatCountContainer.appendChild(this.currentBeatCountLabel);
