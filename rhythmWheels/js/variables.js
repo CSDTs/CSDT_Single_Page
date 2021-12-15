@@ -147,11 +147,11 @@ const TOTAL_WHEEL_COUNT = 3;
 let defaultWheels = {
   wheel1: {
     nodes: ["hihat1", "rest", "hihat1"],
-    repeat: 5,
+    repeat: 1,
   },
   wheel2: {
     nodes: ["clave1", "maracas1", "maracas1", "rest"],
-    repeat: 4,
+    repeat: 1,
   },
 };
 
