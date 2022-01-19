@@ -1,14 +1,3 @@
-function setToWeaver() {
-  basketWeaving = true;
-  gridColor = "#b3a683";
-  updateCanvas();
-}
-
-function setToRug() {
-  navajoKnots = true;
-  updateCanvas();
-}
-
 function redo() {
   if (beadUndoBuffer <= 0) {
     alertUser("There is nothing else you can redo", 5000);
@@ -116,10 +105,7 @@ beadCanvas.addEventListener("mousemove", (e) => {
       y - myCanvas.width / 2
     );
 
-    mouseText = {
-      x,
-      y,
-    };
+    mouseText = { x, y };
     coordinatePanel.innerHTML = "";
     coordinatePanel.classList.remove("coordinate-backing");
   } else {
@@ -296,14 +282,6 @@ let currentFieldset = "point--field";
 let defaultColorFieldset = "color--field";
 let iterationColorFieldset = "iteration-color--field";
 
-// defaultColorSelect.addEventListener("change", (e) => {
-//   updateBead(e.target.value);
-// });
-
-// firstIterationColorSelect.addEventListener("change", (e) => {
-//   updateBead(e.target.value);
-// });
-
 createBtn.addEventListener("click", function (e) {
   createDesign();
 });
@@ -335,42 +313,6 @@ beadStyleSelect.addEventListener("change", (e) => {
   );
 });
 
-/** Set's the default values for each bead pattern
- *
- */
-function setDefaultFormValues() {
-  pointX.value = 2;
-  pointY.value = 2;
-  lineX1.value = -3;
-  lineY1.value = -3;
-  lineX2.value = 3;
-  lineY2.value = 3;
-  rectangleX1.value = -3;
-  rectangleY1.value = -3;
-  rectangleX2.value = 3;
-  rectangleY2.value = 3;
-
-  triangleX1.value = -3;
-  triangleY1.value = 1;
-  triangleX2.value = 0;
-  triangleY2.value = 4;
-  triangleX3.value = 3;
-  triangleY3.value = 1;
-
-  linearIterationX.value = -3;
-  linearIterationY.value = 1;
-  linearRowTotal.value = 4;
-  linearRowLength.value = 7;
-  linearFirstEnd.value = -1;
-  linearSecondEnd.value = 1;
-
-  triangleIterationX.value = 0;
-  triangleIterationY.value = 0;
-  triangleRowGrouping.value = 3;
-  triangleRowTotal.value = 9;
-  triangleEnds = 1;
-}
-
 function createDesign() {
   if (beadDesign == "point") createSinglePoint();
   if (beadDesign == "line") createLine();
@@ -379,6 +321,8 @@ function createDesign() {
   if (beadDesign == "linear-iteration") createLinearIteration();
   if (beadDesign == "triangle-iteration") createTriangleIteration();
 
+  beadStack[stackLength].createPattern();
+
   stackLength++;
   currentProject.modified = true;
   updateVisibleModifiedStatus();
@@ -386,125 +330,92 @@ function createDesign() {
 
 // Creates the bead design / collects and sets user input
 function createSinglePoint() {
-  let initPoint = {
-    x: pointX.value,
-    y: pointY.value,
-  };
+  let initPoint = { x: pointX.value, y: pointY.value };
   let color = defaultColorSelect.value;
 
-  beadStack[stackLength] = new Wampum(initPoint, color, myCanvas, false);
-  beadStack[stackLength].stamp();
+  beadStack[stackLength] = new Wampum(initPoint, color, false);
+  beadStack[stackLength].createPattern();
 }
 
 function createLine() {
-  let startPoint = {
-    x: lineX1.value,
-    y: lineY1.value,
-  };
-  let endPoint = {
-    x: lineX2.value,
-    y: lineY2.value,
-  };
-
+  let start = { x: lineX1.value, y: lineY1.value };
+  let end = { x: lineX2.value, y: lineY2.value };
   let color = defaultColorSelect.value;
 
-  beadStack[stackLength] = new Wampum(startPoint, color, myCanvas, false);
-  beadStack[stackLength].setEndPoint(endPoint);
-  beadStack[stackLength].line();
+  beadStack[stackLength] = new LinePattern(start, end, color, false);
 }
 
 function createRectangle() {
-  let startPoint = {
-    x: rectangleX1.value,
-    y: rectangleY1.value,
-  };
-  let endPoint = {
-    x: rectangleX2.value,
-    y: rectangleY2.value,
-  };
+  let start = { x: rectangleX1.value, y: rectangleY1.value };
+  let end = { x: rectangleX2.value, y: rectangleY2.value };
   let color = defaultColorSelect.value;
 
-  beadStack[stackLength] = new Wampum(startPoint, color, myCanvas, false);
-  beadStack[stackLength].setEndPoint(endPoint);
-  beadStack[stackLength].rectangle();
+  beadStack[stackLength] = new RectanglePattern(start, end, color, false);
 }
 
 function createTriangle() {
-  let startPoint = {
-    x: triangleX1.value,
-    y: triangleY1.value,
-  };
-  let midPoint = {
-    x: triangleX2.value,
-    y: triangleY2.value,
-  };
-  let endPoint = {
-    x: triangleX3.value,
-    y: triangleY3.value,
-  };
+  let start = { x: triangleX1.value, y: triangleY1.value };
+  let mid = { x: triangleX2.value, y: triangleY2.value };
+  let end = { x: triangleX3.value, y: triangleY3.value };
   let color = defaultColorSelect.value;
 
-  beadStack[stackLength] = new Wampum(startPoint, color, myCanvas, false);
-  beadStack[stackLength].setTriangle(midPoint, endPoint);
-  beadStack[stackLength].triangle();
+  beadStack[stackLength] = new TrianglePattern(start, mid, end, color, false);
 }
 
 function createLinearIteration() {
-  let initPoint = {
-    x: linearIterationX.value,
-    y: linearIterationY.value,
-  };
-
-  let firstColor = firstIterationColorSelect.value;
-  let secondColor = secondIterationColorSelect.value;
-
-  let rows = linearRowTotal.value;
-  let rowLength = linearRowLength.value;
-
-  let startNum = linearFirstEnd.value;
-  let endNum = linearSecondEnd.value;
-
+  let start = { x: linearIterationX.value, y: linearIterationY.value };
+  let colorA = firstIterationColorSelect.value;
+  let colorB = secondIterationColorSelect.value;
+  let rows = parseInt(linearRowTotal.value);
+  let length = parseInt(linearRowLength.value);
+  let pre = parseInt(linearFirstEnd.value);
+  let post = parseInt(linearSecondEnd.value);
   let direction = $("#linear-iteration--field input:radio:checked").val();
 
-  beadStack[stackLength] = new Wampum(initPoint, firstColor, myCanvas, false);
-  beadStack[stackLength].setLinearIteration(
-    parseInt(rowLength),
-    parseInt(startNum),
-    parseInt(endNum),
-    parseInt(rows),
+  beadStack[stackLength] = new LinearIteration(
+    length,
+    start,
+    pre,
+    post,
+    rows,
     direction,
-    secondColor
+    colorA,
+    colorB,
+    false
   );
-  beadStack[stackLength].linearIteration();
 }
 
 function createTriangleIteration() {
-  let initPoint = {
-    x: triangleIterationX.value,
-    y: triangleIterationY.value,
-  };
-
-  let firstColor = firstIterationColorSelect.value;
-  let secondColor = secondIterationColorSelect.value;
-
-  let rows = triangleRowTotal.value;
-  let group = triangleRowGrouping.value;
-  let num = triangleEnds.value;
-
+  let start = { x: triangleIterationX.value, y: triangleIterationY.value };
+  let colorA = firstIterationColorSelect.value;
+  let colorB = secondIterationColorSelect.value;
+  let rows = parseInt(triangleRowTotal.value);
+  let group = parseInt(triangleRowGrouping.value);
+  let num = parseInt(triangleEnds.value);
   let direction = $("#triangle-iteration--field input:radio:checked").val();
 
-  beadStack[stackLength] = new Wampum(initPoint, firstColor, myCanvas, false);
-  beadStack[stackLength].setTriangleIteration(
-    parseInt(group),
-    parseInt(num),
-    parseInt(rows),
+  beadStack[stackLength] = new TriangleIteration(
+    start,
+    group,
+    num,
+    rows,
     direction,
-    secondColor
+    colorA,
+    colorB,
+    false
   );
-  beadStack[stackLength].triangleIteration();
 }
 
-// TODO make this work better...
+let appData = {
+  id: 100,
+  gridColor: "#e9e9e9",
+  img: "loom/bl-",
+  examples: 8,
+  title: "Virtual Bead Loom",
+  appSplit: "beadloom.html",
+  isActive: false,
+};
+
 function switchApplications(app) {
   applicationID = app.id;
   currentProject.application = applicationID;
@@ -523,6 +434,7 @@ function switchApplications(app) {
 }
 
 function initApplication() {
+  switchApplications(appData);
   initCloudServices();
   updateCanvas();
   createBeadGallery();
@@ -532,3 +444,5 @@ window.addEventListener("resize", updateCanvas);
 document.querySelector("body").addEventListener("resize", updateCanvas);
 
 ////////////////////////////////////////////////////////////////
+
+initApplication();
