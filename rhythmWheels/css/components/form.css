@@ -38,21 +38,20 @@ legend {
 label {
   font-size: 90%;
   /* color: #6c757d; */
-  color: #cbcfd4
+  color: #cbcfd4;
 }
-label.heard{
-  width: 100%!important;
+label.heard {
+  width: 100% !important;
   display: flex;
   align-items: center;
 }
-label.heard strong{
+label.heard strong {
   margin-left: auto;
   margin-right: auto;
   display: inline-flex;
   color: #0cf7f7;
   font-size: large;
 }
-
 
 .coordinate-input-group {
   display: flex;
@@ -65,4 +64,144 @@ label.heard strong{
 
 input[type="text"] {
   box-shadow: inset 0 2px 4px 0 hsla(0, 0%, 0%, 0.08);
+}
+
+.wheel-input {
+  display: flex;
+  justify-content: space-around;
+  width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 0.5rem;
+  background-color: var(--light-gray);
+  padding: 0.5rem;
+  align-items: center;
+}
+.wheel-input > input {
+  width: 6rem;
+}
+
+.wheel-input > label {
+  margin-bottom: 0;
+}
+.wheel_container > p:first-child {
+  color: white;
+  font-weight: bold;
+}
+
+.wheel_container {
+  align-self: flex-start;
+}
+
+.wheel_container[data-wheel-nodes="1"] {
+  max-height: 135px;
+}
+.wheel_container[data-wheel-nodes="2"] {
+  max-height: 140px;
+}
+.wheel_container[data-wheel-nodes="3"] {
+  max-height: 145px;
+}
+.wheel_container[data-wheel-nodes="4"] {
+  max-height: 150px;
+}
+.wheel_container[data-wheel-nodes="5"] {
+  max-height: 155px;
+}
+.wheel_container[data-wheel-nodes="6"] {
+  max-height: 160px;
+}
+.wheel_container[data-wheel-nodes="7"] {
+  max-height: 165px;
+}
+.wheel_container[data-wheel-nodes="8"] {
+  max-height: 170px;
+}
+.wheel_container[data-wheel-nodes="9"] {
+  max-height: 175px;
+}
+.wheel_container[data-wheel-nodes="10"] {
+  max-height: 180px;
+}
+.wheel_container[data-wheel-nodes="11"] {
+  max-height: 185px;
+}
+.wheel_container[data-wheel-nodes="12"] {
+  max-height: 190px;
+}
+.wheel_container[data-wheel-nodes="13"] {
+  max-height: 200px;
+}
+.wheel_container[data-wheel-nodes="14"] {
+  max-height: 205px;
+}
+.wheel_container[data-wheel-nodes="15"] {
+  max-height: 210px;
+}
+.wheel_container[data-wheel-nodes="16"] {
+  max-height: 215px;
+}
+
+.wheel_container[data-wheel-nodes="1"] > div.heard-count > i {
+  margin-top: 8.25rem;
+}
+
+.wheel_container[data-wheel-nodes="2"] > div.heard-count > i {
+  margin-top: 8.5rem;
+}
+
+.wheel_container[data-wheel-nodes="3"] > div.heard-count > i {
+  margin-top: 8.75rem;
+}
+
+.wheel_container[data-wheel-nodes="4"] > div.heard-count > i {
+  margin-top: 9rem;
+}
+
+.wheel_container[data-wheel-nodes="5"] > div.heard-count > i {
+  margin-top: 9.25rem;
+}
+
+.wheel_container[data-wheel-nodes="6"] > div.heard-count > i {
+  margin-top: 9.5rem;
+}
+
+.wheel_container[data-wheel-nodes="7"] > div.heard-count > i {
+  margin-top: 9.75rem;
+}
+
+.wheel_container[data-wheel-nodes="8"] > div.heard-count > i {
+  margin-top: 10rem;
+}
+
+.wheel_container[data-wheel-nodes="9"] > div.heard-count > i {
+  margin-top: 10.25rem;
+}
+
+.wheel_container[data-wheel-nodes="10"] > div.heard-count > i {
+  margin-top: 10.5rem;
+}
+
+.wheel_container[data-wheel-nodes="11"] > div.heard-count > i {
+  margin-top: 10.75rem;
+}
+
+.wheel_container[data-wheel-nodes="12"] > div.heard-count > i {
+  margin-top: 11rem;
+}
+
+.wheel_container[data-wheel-nodes="13"] > div.heard-count > i {
+  margin-top: 11.25rem;
+}
+
+.wheel_container[data-wheel-nodes="14"] > div.heard-count > i {
+  margin-top: 11.5rem;
+}
+
+.wheel_container[data-wheel-nodes="15"] > div.heard-count > i {
+  margin-top: 11.75rem;
+}
+
+.wheel_container[data-wheel-nodes="16"] > div.heard-count > i {
+  margin-top: 13.5rem;
 }

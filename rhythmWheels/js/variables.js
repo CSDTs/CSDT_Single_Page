@@ -189,6 +189,7 @@ let appReferences = {
   recordCountdown: "countdown",
 
   recordPrompt: "recordModal",
+  recordWarning: "record-warning",
 };
 
 // List of HTML element names to make it easier to refactor

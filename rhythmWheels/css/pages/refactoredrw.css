@@ -260,6 +260,7 @@ div.range-group div.form-group {
   flex-flow: column;
   height: 92%;
   flex: 1 1 auto;
+
   /* flex: 0 1 auto; */
   /* align-self: center; */
 }

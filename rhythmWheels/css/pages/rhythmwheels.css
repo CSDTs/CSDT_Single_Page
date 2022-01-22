@@ -149,8 +149,7 @@ div.range-group div.form-group {
   display: flex;
   justify-content: space-between;
   width: 100%;
- 
-  
+
   color: #cbcfd4;
   align-items: baseline;
 }
@@ -202,6 +201,7 @@ div.range-group div.form-group {
 
 #application-container {
   flex: 1 0 50%;
+  height: auto;
   /* max-height: 100px; */
   /* align-self: center; */
 }

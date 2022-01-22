@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * Contains the core logic of the wheels
  *
@@ -152,7 +153,8 @@ class Wheel {
     this.container.classList.add(appReferences.individualWheelContainer);
 
     // Create the header and assign the wheel a generic wheel title
-    this.header = document.createElement("h4");
+    this.header = document.createElement("p");
+    // this.header = document.createElement("h4");
     this.header.innerHTML = title;
 
     // Throw the header into the container
@@ -181,7 +183,7 @@ class Wheel {
     // Then, create the 'Repeat' input field, and add it to the panel
     this.createRepeatField();
 
-    this.createNumOfCurrentBeats();
+    // this.createNumOfCurrentBeats();
 
     // Append the finished control panel to the sidebar
     document
@@ -247,11 +249,17 @@ class Wheel {
 
     //Create the field label
     this.currentBeatCountLabel = document.createElement("label");
+    this.currentBeatCountArrow = document.createElement("i");
+    this.currentBeatCountArrow.classList.add("fas", "fa-chevron-up");
     this.currentBeatCountLabel.classList.add("heard");
-    this.currentBeatCountLabel.innerHTML = "Heard so far: <strong>0</strong>";
+    // this.currentBeatCountLabel.innerHTML = "Heard so far: <strong>0</strong>";
+    this.currentBeatCountLabel.innerHTML = "<strong>0</strong>";
     this.currentBeatCountContainer = document.createElement("div");
+    this.currentBeatCountContainer.appendChild(this.currentBeatCountArrow);
+    this.currentBeatCountContainer.classList.add("heard-count");
     this.currentBeatCountContainer.appendChild(this.currentBeatCountLabel);
-    this.controlPanel.appendChild(this.currentBeatCountContainer);
+    // this.controlPanel.appendChild(this.currentBeatCountContainer);
+    this.container.appendChild(this.currentBeatCountContainer);
   }
 
   /**
@@ -274,7 +282,7 @@ class Wheel {
 
     // Create the container for the input and label
     this.repeatContainer = document.createElement("div");
-    this.repeatContainer.classList.add("wheel-repeat-label");
+    this.repeatContainer.classList.add("wheel-repeat-label", "wheel-input");
     this.repeatLabel = document.createElement("label");
     this.repeatLabel.innerHTML = "Repeat: ";
 
@@ -283,7 +291,7 @@ class Wheel {
     this.repeatContainer.appendChild(this.repeatInput);
 
     // Append the repeat field to the wheel's control panel
-    this.controlPanel.appendChild(this.repeatContainer);
+    // this.controlPanel.appendChild(this.repeatContainer);
   }
 
   /**
@@ -319,6 +327,10 @@ class Wheel {
 
     // Add the finished wheel with nodes into the wheel container.
     this.container.appendChild(this.wheel);
+
+    this.container.setAttribute("data-wheel-nodes", `${this.nodeCount}`);
+    this.createNumOfCurrentBeats();
+    this.container.appendChild(this.repeatContainer);
   }
 
   /**
@@ -381,6 +393,8 @@ class Wheel {
 
     //Set the current node count as the selected value.
     this.beatCountSelect.options[nodeCount - 1].selected = true;
+
+    this.container.setAttribute("data-wheel-nodes", `${this.nodeCount}`);
 
     // Update the wheel visually
     this.update();
@@ -462,7 +476,7 @@ class Wheel {
         currentPos - Math.floor(currentPos) < 0.7
       );
       this.currentNode = currentPos;
-      this.currentBeatCountLabel.innerHTML = `Heard so far: <strong>${this.currentNode.toFixed(
+      this.currentBeatCountLabel.innerHTML = `<strong>${this.currentNode.toFixed(
         0
       )}</strong>`;
     }
@@ -512,6 +526,7 @@ class RecordWheel {
       appReferences.wheelControlsContainer
     );
 
+    this.recordWarning = document.getElementById(appReferences.recordWarning);
     this.TIME_LIMIT = 3;
     this.timePassed = 0;
     this.timeLeft = this.TIME_LIMIT;
@@ -565,9 +580,10 @@ class RecordWheel {
     this.stopRecordButton.addEventListener("click", () => this.stopRecording());
 
     // TODO When reworking the recording modal, should automatically call
-    $(`.${appReferences.closeRecordingPrompt}`).on("click", () => {
+    $(`#${appReferences.closeRecordingPrompt}`).on("click", () => {
       try {
         this.stopRecording();
+        this.startTimer();
       } catch (e) {
         console.error(e);
       }
@@ -619,7 +635,8 @@ class RecordWheel {
     this.container.id = appReferences.recordingWheel;
 
     // Create the header and assign the wheel a generic wheel title
-    this.header = document.createElement("h4");
+    // this.header = document.createElement("h4");
+    this.header = document.createElement("p");
     this.header.innerHTML = "Recording: ";
 
     // Throw the header into the container
@@ -741,9 +758,28 @@ class RecordWheel {
         );
         this.audioRec.start();
         superAudioContext.resume();
+        let counter = 30;
+
+        this.warningTimeout = setTimeout(() => {
+          if (this.audioRec.state == "inactive") return;
+
+          this.timerInterval = setInterval(() => {
+            if (counter > 0) {
+              this.recordWarning.innerHTML = `<br><br>You have ${counter} seconds left.`;
+              this.recordWarning.hidden = false;
+              counter = counter - 1;
+            } else {
+              this.recordWarning.innerHTML = ``;
+              clearInterval(this.timerInterval);
+            }
+          }, 1000);
+        }, 150000);
+        this.autoCloseTimeout = setTimeout(() => {
+          if (this.audioRec.state == "inactive") return;
+          this.startTimer();
+        }, 181000);
       });
   }
-
   processMicrophoneAudio(e) {
     this.audioRec.stream.getTracks().forEach((track) => track.stop());
     let myself = this;
@@ -924,6 +960,10 @@ class RecordWheel {
       if (this.audioRec.state == "inactive") return;
       this.audioRec.stop();
       this.recordingButton.classList.add("restart-recording");
+      this.recordWarning.innerHTML = "";
+      clearInterval(this.timerInterval);
+      clearTimeout(this.warningTimeout);
+      clearTimeout(this.autoCloseTimeout);
       return;
     }
     if (this.recordingButton.classList.contains("countdown-recording")) {
