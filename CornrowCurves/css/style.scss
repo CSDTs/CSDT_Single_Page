@@ -1,0 +1,60 @@
+@import "../css/vendors/bootstrap/scss/bootstrap.scss";
+
+div.loading-overlay {
+  position: fixed;
+  display: -webkit-box;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  z-index: 500;
+  background-color: #535353;
+
+  h5 {
+    font-size: x-large;
+    color: white;
+    font-weight: 700;
+  }
+}
+
+.text-small {
+  font-size: small;
+}
+
+nav.application-nav {
+  @extend .d-flex;
+
+  button.btn-clear {
+    @extend .btn;
+    @extend .btn-link;
+    @extend .btn-sm;
+  }
+
+  button.btn-dropdown {
+    @extend .btn;
+    @extend .btn-link;
+    @extend .btn-sm;
+    @extend .dropdown-toggle;
+  }
+
+  div.dropdown-menu {
+    a {
+      @extend .dropdown-item;
+    }
+    label {
+      @extend .dropdown-item;
+      margin: 0;
+    }
+  }
+
+  span#visibleModifiedStatus {
+    @extend .ml-auto;
+    @extend .text-muted;
+    @extend .small;
+    @extend .align-self-center;
+  }
+}

@@ -115,7 +115,7 @@ class Braid {
   }
 
   /** Draws braid based on current data stored in braid
-   * @param {string} color an optional hex code containt the color to stamp
+   * @param {string} color an optional hex code contains the color to stamp
    * @param {number} width an optional width for the braid strokes
    *
    * @return {Braid} returns "this" for chaining
@@ -220,7 +220,7 @@ class Braid {
   }
 
   /** Draws vector based on current data stored in braid
-   * @param {string} color an optional hex code containt the color to stamp
+   * @param {string} color an optional hex code contains the color to stamp
    * @param {number} width an optional width for the braid strokes
    *
    * @return {Braid} returns "this" for chaining
@@ -337,7 +337,7 @@ class Braid {
     return this;
   }
 
-  /** Save or edit paramters for iteration
+  /** Save or edit parameters for iteration
    * @param {number} translateX percentage
    * @param {number} translateY percentage
    * @param {number} rotationAngle
@@ -392,3 +392,56 @@ class Braid {
     };
   }
 }
+
+/** rotateAroundPoint: Rotates one point around another
+ * @param {object} A
+ * @param {number} angle
+ * @param {object} B
+ *
+ * @return {object} returns "A" rotated "angle" radians around "B"
+ */
+function rotateAroundPoint(A, angle, B) {
+  return {
+    x: (A.x - B.x) * Math.cos(angle) - (A.y - B.y) * Math.sin(angle) + B.x,
+    y: (A.y - B.y) * Math.cos(angle) + (A.x - B.x) * Math.sin(angle) + B.y,
+  };
+}
+
+/** reflect: reflects a braid based on the given info
+ * @param {number} x starting x
+ * @param {number} y starting y
+ * @param {number} midX x coordinate of the point of reflection
+ * @param {number} midY y coordinate of the point of reflection
+ * @param {string} axis axis of reflection (x, y, xy)
+ *
+ * @return {object} a point containing the reflected x and y
+ */
+function reflect(x, y, midX, midY, axis) {
+  return {
+    x: axis.includes("y") ? 2 * midX - x : x,
+    y: axis.includes("x") ? 2 * midY - y : y,
+  };
+}
+
+/** degToRad: Convert degrees to radians
+ * @param {number} angle
+ *
+ * @return {number}
+ */
+function degToRad(angle) {
+  return (angle * Math.PI) / 180;
+}
+
+/** radToDeg: Convert radians to degrees
+ * @param {number} angle
+ *
+ * @return {number}
+ */
+function radToDeg(angle) {
+  return (angle * 180) / Math.PI;
+}
+/**
+ * Load a project into memory
+ *
+ * @param {string} text a JSON string
+ */
