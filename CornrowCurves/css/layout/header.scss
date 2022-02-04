@@ -1,3 +1,6 @@
+.logo {
+}
+
 .logo--nsf {
   width: 2.5rem;
 }
@@ -5,7 +8,6 @@
 .logo--csdt {
   width: 6.25rem;
 }
-
 header {
   /* background-color: #222;
     display: flex;
@@ -16,7 +18,5 @@ header {
     margin-right: auto;
     padding-left: 8rem;
     padding-right: 8rem; */
-  -ms-flex-line-pack: center;
-      align-content: center;
+  align-content: center;
 }
-/*# sourceMappingURL=header.css.map */

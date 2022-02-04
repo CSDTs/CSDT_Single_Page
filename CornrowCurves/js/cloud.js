@@ -1,65 +1,5 @@
-//Cloud references
-let cloudUI = {
-  projects: "user-projects",
-  classrooms: "user-classrooms",
-  logout: "logout-btn",
+// Need loadFromJSON function
 
-  loadProject: "load-project",
-  saveProjectAs: "save-project-as",
-  applicationProjects: "project-list",
-  classroomName: "classroom-name",
-
-  signInPrompt: "signInPrompt",
-  signInSubmit: "signUserIn",
-  signInLoader: "signInLoader",
-  signInErrorMsg: "signInErrorMsg",
-  passwordVisibility: "show_hide_password-addon",
-  passwordEyeIcon: "passwordEye",
-  usernameField: "usernameField",
-  passwordField: "passwordField",
-
-  signOutPrompt: "signOutPrompt",
-  signOutSubmit: "signUserOut",
-  signOutLoader: "signOutLoader",
-  signOutErrorMsg: "signOutErrorMsg",
-
-  loadingOverlay: "loading-overlay",
-
-  userAlertModal: "userAlert",
-  userAlertMsg: "userAlertMsg",
-
-  saveProjectPrompt: "saveProjectPrompt",
-  saveProjectSubmit: "saveUserProject",
-  saveProjectSignIn: "saveProjectSignIn",
-  projectNameField: "projectNameField",
-  saveProjectConfirm: "saveProjectConfirm",
-  saveConfirmedSignIn: "saveProjectConfirmSignIn",
-  saveConfirmedSubmit: "saveUserProjectConfirmed",
-  saveConfirmMsg: "saveProjectConfirmMsg",
-
-  loadProjectPrompt: "loadProjectPrompt",
-  loadProjectSubmit: "loadUserProject",
-  loadProjectList: "loadProjectList",
-  loadProjectSignIn: "loadProjectSignIn",
-  loadProjectMsg: "loadProjectPromptMsg",
-  loadProjectLoader: "loadProjectLoader",
-
-  loadLocalProject: "loadLocalProject",
-  saveLocalProject: "saveLocalProject",
-
-  navSignUp: "navSignUp",
-  navUserStatus: "navUserStatus",
-  navUserProjects: "navUserProjects",
-  navUserProfile: "",
-  navUserClassrooms: "navUserClassrooms",
-  navSignOut: "navSignOut",
-  navUserIcon: "navUserIcon",
-  navUserDropdown: "navUserDropdown",
-  navUserContainer: "navUserContainer",
-
-  visibleModifiedStatus: "visibleModifiedStatus",
-  saveProjectClassroomSelect: "saveProjectClassroomSelect",
-};
 //API Links
 const api = {
   project: "/api/projects/",
@@ -71,7 +11,7 @@ const api = {
   logout: "/accounts/logout/",
 };
 
-//Quick and dirty approach to handling broken images for new project saves
+//Update image src in application to handle transition to new projects with updated url change
 let currentApplicationSplit = window.location.href.split("/").slice(-1);
 let currentLocation = window.location.href.split(currentApplicationSplit)[0];
 let isAppHomepage = currentLocation.includes("CSDT_Single_Page");
@@ -85,6 +25,7 @@ class Modal {
     this.label = label;
     this.id = id;
   }
+
   createHeader(text) {
     let container = document.createElement("div");
     let header = document.createElement("h5");
@@ -130,6 +71,7 @@ class Modal {
 
     return container;
   }
+
   createLoginBtn(id) {
     let loginBtn = document.createElement("button");
     loginBtn.id = id;
@@ -193,7 +135,7 @@ class Modal {
 }
 
 class Project {
-  constructor(saveObject) {
+  constructor(object, thumbnail) {
     this.id = "";
     this.modified = false;
     this.new = true;
@@ -205,8 +147,10 @@ class Project {
     this.screenshot_id = "";
     this.created_at = "";
     this.modified_at = "";
-    this.object = saveObject;
+    this.object = object;
+    this.thumbnail = thumbnail;
   }
+
   setFromLoad(id, data) {
     this.id = id;
     this.modified = false;
@@ -225,6 +169,7 @@ class Project {
     currentProject.modified = false;
     currentProject.new = false;
   }
+
   refreshModifiedStatusIndicator() {
     let indicator = document.querySelector("#visibleModifiedStatus");
 
@@ -232,7 +177,7 @@ class Project {
       indicator.innerHTML = `<strong>You have unsaved changes</strong>`;
     } else {
       if (this.created_at != "")
-        indicator.innerHTML = `Last saved on: <strong>${this.created_at}</strong>`;
+        indicator.innerHTML = `Last saved on:<br> <strong>${this.created_at}</strong>`;
       else indicator.innerHTML = ``;
     }
   }
@@ -254,9 +199,6 @@ class User {
     this.id = "";
     this.name = "";
     this.loggedIn = false;
-
-    // this.clearClassrooms();
-    // updateUserNavigation();
   }
 
   setUserData(data) {
@@ -305,6 +247,26 @@ class Cloud {
       });
   }
 
+  initBasic() {
+    //Just inits the navbar if app doesn't have any saving intentions...
+    //Gets the CSRF token
+    getCSRFToken();
+
+    // Check for current user and project
+    this.getFromAPI(api.user)
+      .then((data) => {
+        currentUser.setUserData(data);
+        userNavigation.updateUserNavigation();
+      })
+      .catch((err) => {
+        currentUser.clearUser();
+        userNavigation.updateUserNavigation();
+        console.error(
+          `Error: Failed to get a current user -- ${JSON.stringify(err)}`
+        );
+      });
+  }
+
   updateCurrentURL() {
     if (
       window.history !== undefined &&
@@ -318,7 +280,6 @@ class Cloud {
     if (typeof config === "undefined") return;
 
     console.log("Project found. Proceeding with project load.");
-    // loadProjectFromCloud(parseInt(config.project.id), loadFromJSON);
     this.load(parseInt(config.project.id), loadFromJSON);
   }
 
@@ -326,7 +287,9 @@ class Cloud {
     let filename = `${currentProject.name}.json`;
     let text;
     try {
-      text = JSON.stringify(currentProject.object.map((b) => b.serialize()));
+      text = JSON.stringify(
+        currentProject.dataObject.map((b) => b.serialize())
+      );
     } catch (e) {
       console.error(
         "The current save object array is missing a serialize function."
@@ -355,6 +318,8 @@ class Cloud {
     let reader = new FileReader();
     reader.onload = (e) => {
       loadFromJSON(e.target.result);
+      currentProject.modified = true;
+      currentProject.refreshModifiedStatusIndicator();
     };
     reader.readAsText(file);
   }
@@ -406,10 +371,10 @@ class Cloud {
     alertPrompt.alertUser("Saving your project. Please wait...");
 
     let projectForm = generateSaveFormData(
-      saveObject.project,
+      currentProject.object,
       "application/json"
     );
-    let imageForm = generateSaveFormData(saveObject.image, "image/png");
+    let imageForm = generateSaveFormData(currentProject.thumbnail, "image/png");
 
     const imgPromise = this.saveNewFile(imageForm).catch((err) => {
       console.error(err);
@@ -422,9 +387,9 @@ class Cloud {
       currentProject.screenshot_id = values[0];
       currentProject.data_id = values[1];
       currentProject.classroom = currentProject.new
-        ? $(`#${cloudUI.saveProjectClassroomSelect}`).val() == "Choose..."
+        ? saveAsPrompt.classroomSelect.value == "Choose..."
           ? null
-          : parseInt($(`#${cloudUI.saveProjectClassroomSelect}`).val())
+          : parseInt(saveAsPrompt.classroomSelect.value)
         : currentProject.classroom;
 
       if (currentProject.new || currentProject.id == "") {
@@ -699,6 +664,7 @@ class SignOutPrompt extends Modal {
         currentUser.clearUser();
         loadPrompt.clearData();
         saveAsPrompt.clearData();
+        saveAsPrompt.update();
         savePrompt.update();
         myself.updateSignOutPrompt("hide");
 
@@ -706,8 +672,6 @@ class SignOutPrompt extends Modal {
         alertPrompt.alertUser(`Logout was successful`, 2000);
 
         userNavigation.updateUserNavigation();
-        // updateProjectSaveAlert();
-        saveAsPrompt.update();
       })
       .catch((err) => {
         //Update the sign out prompt
@@ -720,6 +684,7 @@ class SignOutPrompt extends Modal {
         );
         //Log the issue
         console.error(`Error Message: ${JSON.stringify(err)}`);
+        console.error(err);
       });
   }
 }
@@ -958,7 +923,10 @@ class LoadPrompt extends Modal {
   }
 
   clearData() {
-    this.projectSelectContainer.removeChild(this.projectList);
+    // this.projectSelectContainer.removeChild(this.projectList);
+    if (this.projectList) {
+      this.projectList.remove();
+    }
     this.loaderMsg.hidden = false;
     this.loadBtn.hidden = true;
     this.loginBtn.hidden = false;
@@ -994,7 +962,7 @@ class Navigation {
     projectLink.classList.add("dropdown-item");
 
     classroomLink.innerHTML = "My Classrooms";
-    classroomLink.href = `/users/${currentUser.id}`;
+    classroomLink.href = `/users/${currentUser.id}/classes`;
     classroomLink.classList.add("dropdown-item");
 
     signOutLink.innerHTML = "Not you? (LOGOUT)";
@@ -1200,15 +1168,6 @@ class SaveAsPrompt extends Modal {
 
     row.append(labelColumn, formColumn);
 
-    // Updates global project name when user makes any changes to it
-    // $(`#${cloudUI.projectNameField}`).on("keyup", () => {
-    //   $(`#${cloudUI.projectNameField}`).attr(
-    //     "value",
-    //     $(`#${cloudUI.projectNameField}`).val()
-    //   );
-    //   currentProject.name = $(`#${cloudUI.projectNameField}`).val();
-    // });
-
     input.addEventListener("keyup", () => {
       currentProject.name = input.value;
     });
@@ -1268,6 +1227,7 @@ class SaveAsPrompt extends Modal {
 
   createClassroomSelect(data) {
     let select = document.createElement("select");
+    this.classroomSelect = select;
     // let selectContainer = document.getElementById("projectClassroomContainer");
     let group = document.createElement("div");
     group.classList.add("form-group");
@@ -1719,25 +1679,18 @@ function dataToBlob(data, type) {
 function serializeData(data) {
   return JSON.stringify(data.map((b) => b.serialize()));
 }
-function updateVisibleModifiedStatus() {
-  $(`#${cloudUI.visibleModifiedStatus}`).html(
-    currentProject.modified
-      ? "<strong>You have unsaved changes.</strong> "
-      : `Last saved on: <strong>${currentProject.created_at}</strong>`
-  );
-}
 
 function updateCurrentProjectSettings(id) {
   currentProject.setFromSave(id);
   cloud.updateCurrentURL();
-  updateVisibleModifiedStatus();
+  currentProject.refreshModifiedStatusIndicator();
   alertPrompt.alertUser("Success. Your project was saved.", 2500);
-
   loadPrompt.fetchUserProjects();
 }
 
 window.addEventListener("beforeunload", function (e) {
-  var confirmationMessage =
+  let visibleModifiedStatus = document.querySelector("#visibleModifiedStatus");
+  let confirmationMessage =
     "It looks like you have been editing something. " +
     "If you leave before saving, your changes will be lost.";
 

@@ -1,7 +1,7 @@
 /* Braid Gallery */
 #braidGallery {
   z-index: 1058;
-  color: #6b6b6b;
+  color: hsl(0, 0%, 42%);
 }
 
 #braidGallery div.modal-dialog {
@@ -11,7 +11,7 @@
 }
 
 #braidGallery div div.modal-content {
-  background-color: #fcfcfc;
+  background-color: hsl(0, 0%, 99%);
   border-top: 6px solid #0092ed;
 }
 
@@ -25,7 +25,7 @@
 }
 
 #braidGallery div div div.modal-header h5 {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
   font-weight: 600;
   font-size: 1.4rem;
   width: 100% !important;
@@ -53,7 +53,7 @@
 }
 
 #braidGallery div div div.modal-footer p strong a {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
 }
 
 #braidGallery div div div div.form-forgot-password {
@@ -63,36 +63,34 @@
 }
 
 #braidGallery div div div div.form-forgot-password strong a {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
   font-size: 0.9rem;
 }
 
 #braidGallery div div div.modal-footer {
   margin-top: 1.5rem;
-  background-color: #ededed;
+  background-color: hsl(0, 0%, 93%);
   border-top: 0px;
   padding-left: 25px;
   padding-right: 25px;
   font-size: 0.9rem;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  justify-content: flex-end;
 }
 
 #braidGallery div div div.modal-footer div button.btn-link {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
 }
 
 #braidGallery div div div.modal-footer div button.btn-secondary {
   color: #6e9dee !important;
   border-color: #6e9dee;
-  background-color: #ededed;
+  background-color: hsl(0, 0%, 93%);
 }
 
 #braidGallery div div div.modal-footer div button.btn-primary {
   /* color: hsl(0, 0%, 27%) !important; */
   border: 0px;
-  background-color: #0091eb;
+  background-color: hsla(203, 100%, 46%, 1);
 }
 
 /* Goal Image*/
@@ -101,13 +99,10 @@
   border: solid 1px #efefef;
   cursor: pointer;
 }
-
 .braid-img {
   /* padding: 5px; */
   border: solid 1px #efefef;
   cursor: pointer;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   margin-left: auto;
   margin-right: auto;
@@ -116,7 +111,7 @@
 img#goal-image:hover,
 img.braid-img:hover {
   border: solid 1px #ccc;
+  -moz-box-shadow: 1px 1px 5px #999;
   -webkit-box-shadow: 1px 1px 5px #999;
   box-shadow: 1px 1px 5px #999;
 }
-/*# sourceMappingURL=gallery.css.map */

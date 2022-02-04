@@ -19,7 +19,7 @@
 
 	<!-- Main CSS -->
 	<link rel="stylesheet" href="./css/main.css">
-	<link rel="stylesheet" href="./css/style.css">
+
 </head>
 
 <body>
@@ -74,7 +74,7 @@
 					<li class="user-nav nav-item dropdown"></li>
 					<li class="nav-item">
 						<a class="nav-link nav-link--help" href="/help/index.html">
-							<i class="far fa-question-circle"></i>
+							<i class="far fa-question-circle"><span>Help</span></i>
 						</a>
 					</li>
 				</ul>
@@ -215,11 +215,11 @@
 								<div class="input-group mb-3 input-group-sm justify-content-around">
 									<div class="single-line-group align-items-center">
 										<span class="pr-2">X </span>
-										<input id="reflectx" type="checkbox" name="reflect-x">
+										<input id="reflect-x" type="checkbox" name="X Axis Reflection">
 									</div>
 									<div class="single-line-group align-items-center">
 										<span class="pr-2">Y </span>
-										<input id="reflecty" type="checkbox" name="reflect-y">
+										<input id="reflect-y" type="checkbox" name="Y Axis Reflection">
 									</div>
 								</div>
 							</div>
@@ -324,7 +324,9 @@
 	<script src="./js/cloud.js"></script>
 	<script src="./js/braid.js"></script>
 	<script src="./js/main.js"></script>
-
+	<script>
+		initApplication();
+	</script>
 </body>
 
 </html>

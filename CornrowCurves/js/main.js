@@ -3,11 +3,6 @@
 // Application ID can be found via django admin panel
 let applicationID = 99;
 
-// Create cloud instance
-// window.csdtCloud;
-
-// IDs and classes of the application. Makes refactoring way easier...
-
 // Cornrow Curves Math variables
 let hideGrid = false;
 let addAtCurrentPoint = false;
@@ -22,6 +17,11 @@ let goalDirectory = "braids/cc-";
 // The canvas object that will be used
 const braidCanvas = document.getElementById("braidCanvas");
 const ctx = braidCanvas.getContext("2d");
+
+// Data that gets passed to cloud framework
+let currentProject = new Project(Braids, braidCanvas);
+let currentUser = new User();
+
 // Different highlight values to distinguish different braids
 let braidHighlightColors = [
   "#EF4444",
@@ -61,21 +61,7 @@ let exampleValues = {
   dilate: 97,
 };
 
-// Data that gets passed to cloud framework
-let saveObject = {
-  project: Braids,
-  image: braidCanvas,
-};
-let currentProject = null;
-let currentUser = null;
-
-currentProject = new Project(Braids);
-currentUser = new User();
 //DOM elements
-
-// const goalImageModal = document.getElementById("braidGallery");
-// const goalImageContainer = document.getElementById("braidGalleryContainer");
-
 const applicationTitle = document.getElementById("application-title");
 const applicationContainer = document.getElementById("canvas-container");
 const dataContainer = document.getElementById("data-container");
@@ -270,19 +256,19 @@ let gallery = new Gallery();
 formData.addEventListener("change", () => {
   loadCanvas();
   currentProject.modified = true;
-  updateVisibleModifiedStatus();
+  currentProject.refreshModifiedStatusIndicator();
 });
 
 formData.addEventListener("keyup", () => {
   loadCanvas();
   currentProject.modified = true;
-  updateVisibleModifiedStatus();
+  currentProject.refreshModifiedStatusIndicator();
 });
 
 formData.addEventListener("input", () => {
   loadCanvas();
   currentProject.modified = true;
-  updateVisibleModifiedStatus();
+  currentProject.refreshModifiedStatusIndicator();
 });
 
 xParam.addEventListener("focusout", () => {
@@ -495,7 +481,7 @@ function createNewBraid() {
   loadCanvas();
   updateBraidSelect();
   currentProject.modified = true;
-  updateVisibleModifiedStatus();
+  currentProject.refreshModifiedStatusIndicator();
 }
 
 /** Deletes the currently selected braid.*/
@@ -506,7 +492,7 @@ function deleteSelectedBraid() {
   // Update the index
   currBraidIndex = currBraidIndex - 1;
   currentProject.modified = true;
-  updateVisibleModifiedStatus();
+  currentProject.refreshModifiedStatusIndicator();
 }
 
 /**Cycles through the defined colors to give different colors to each braid's highlight*/
@@ -557,7 +543,7 @@ function clearCanvas() {
       updateBraidSelect();
     }
     currentProject.modified = true;
-    updateVisibleModifiedStatus();
+    currentProject.refreshModifiedStatusIndicator();
   }
 }
 
@@ -794,5 +780,3 @@ function initApplication() {
 
 window.addEventListener("resize", loadCanvas);
 document.querySelector("body").addEventListener("resize", loadCanvas);
-
-initApplication();

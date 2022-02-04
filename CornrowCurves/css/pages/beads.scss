@@ -3,21 +3,15 @@ canvas {
   width: 100%;
   height: auto;
 }
-
 .coordinate-backing {
   background-color: #c6ccd2;
   padding: 10px;
   color: #212529;
   width: 100%;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  justify-content: center;
 }
 
 #pattern-image {
   border: 1px solid #c1c1c1;
 }
-/*# sourceMappingURL=beads.css.map */

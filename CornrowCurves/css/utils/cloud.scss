@@ -1,4 +1,5 @@
 /* Modals */
+
 #projectAlert {
   z-index: 1070;
 }
@@ -9,7 +10,7 @@
 
 #signInPrompt {
   z-index: 1060;
-  color: #6b6b6b;
+  color: hsl(0, 0%, 42%);
 }
 
 #signInPrompt div.modal-dialog {
@@ -19,7 +20,7 @@
 }
 
 #signInPrompt div div.modal-content {
-  background-color: #fcfcfc;
+  background-color: hsl(0, 0%, 99%);
   border-top: 6px solid #0092ed;
 }
 
@@ -29,7 +30,7 @@
 }
 
 #signInPrompt div div div.modal-header h5 {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
   font-weight: 600;
   font-size: 1.4rem;
   width: 100% !important;
@@ -55,7 +56,7 @@
 }
 
 #signInPrompt div div div.modal-footer p strong a {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
 }
 
 #signInPrompt div div div div.form-forgot-password {
@@ -65,13 +66,13 @@
 }
 
 #signInPrompt div div div div.form-forgot-password strong a {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
   font-size: 0.9rem;
 }
 
 #signInPrompt div div div.modal-footer {
   margin-top: 1.5rem;
-  background-color: #ededed;
+  background-color: hsl(0, 0%, 93%);
   border-top: 0px;
 }
 
@@ -89,7 +90,7 @@
 
 #signOutPrompt {
   z-index: 1060;
-  color: #6b6b6b;
+  color: rgb(107, 107, 107);
 }
 
 #signOutPrompt div.modal-dialog {
@@ -99,7 +100,7 @@
 }
 
 #signOutPrompt div div.modal-content {
-  background-color: #fcfcfc;
+  background-color: hsl(0, 0%, 99%);
   border-top: 6px solid #ed0000;
 }
 
@@ -113,7 +114,7 @@
 }
 
 #signOutPrompt div div div.modal-header h5 {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
   font-weight: 600;
   font-size: 1.4rem;
   width: 100% !important;
@@ -141,7 +142,7 @@
 }
 
 #signOutPrompt div div div.modal-footer p strong a {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
 }
 
 #signOutPrompt div div div div.form-forgot-password {
@@ -151,13 +152,13 @@
 }
 
 #signOutPrompt div div div div.form-forgot-password strong a {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
   font-size: 0.9rem;
 }
 
 #signOutPrompt div div div.modal-footer {
   margin-top: 1.5rem;
-  background-color: #ededed;
+  background-color: hsl(0, 0%, 93%);
   border-top: 0px;
   padding-left: 25px;
   padding-right: 25px;
@@ -165,12 +166,12 @@
 }
 
 #signOutPrompt div div div.modal-footer button.btn-link {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
 }
 
 #saveProjectPrompt {
   z-index: 1058;
-  color: #6b6b6b;
+  color: hsl(0, 0%, 42%);
 }
 
 #saveProjectPrompt div.modal-dialog {
@@ -180,7 +181,7 @@
 }
 
 #saveProjectPrompt div div.modal-content {
-  background-color: #fcfcfc;
+  background-color: hsl(0, 0%, 99%);
   border-top: 6px solid #0092ed;
 }
 
@@ -194,7 +195,7 @@
 }
 
 #saveProjectPrompt div div div.modal-header h5 {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
   font-weight: 600;
   font-size: 1.4rem;
   width: 100% !important;
@@ -222,7 +223,7 @@
 }
 
 #saveProjectPrompt div div div.modal-footer p strong a {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
 }
 
 #saveProjectPrompt div div div div.form-forgot-password {
@@ -232,41 +233,39 @@
 }
 
 #saveProjectPrompt div div div div.form-forgot-password strong a {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
   font-size: 0.9rem;
 }
 
 #saveProjectPrompt div div div.modal-footer {
   margin-top: 1.5rem;
-  background-color: #ededed;
+  background-color: hsl(0, 0%, 93%);
   border-top: 0px;
   padding-left: 25px;
   padding-right: 25px;
   font-size: 0.9rem;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
 }
 
 #saveProjectPrompt div div div.modal-footer div button.btn-link {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
 }
 
 #saveProjectPrompt div div div.modal-footer div button.btn-secondary {
   color: #6e9dee !important;
   border-color: #6e9dee;
-  background-color: #ededed;
+  background-color: hsl(0, 0%, 93%);
 }
 
 #saveProjectPrompt div div div.modal-footer div button.btn-primary {
   /* color: hsl(0, 0%, 27%) !important; */
   border: 0px;
-  background-color: #0091eb;
+  background-color: hsla(203, 100%, 46%, 1);
 }
 
 #loadProjectPrompt {
   z-index: 1058;
-  color: #6b6b6b;
+  color: hsl(0, 0%, 42%);
 }
 
 #loadProjectPrompt div.modal-dialog {
@@ -276,7 +275,7 @@
 }
 
 #loadProjectPrompt div div.modal-content {
-  background-color: #fcfcfc;
+  background-color: hsl(0, 0%, 99%);
   border-top: 6px solid #0092ed;
 }
 
@@ -290,7 +289,7 @@
 }
 
 #loadProjectPrompt div div div.modal-header h5 {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
   font-weight: 600;
   font-size: 1.4rem;
   width: 100% !important;
@@ -318,7 +317,7 @@
 }
 
 #loadProjectPrompt div div div.modal-footer p strong a {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
 }
 
 #loadProjectPrompt div div div div.form-forgot-password {
@@ -328,41 +327,39 @@
 }
 
 #loadProjectPrompt div div div div.form-forgot-password strong a {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
   font-size: 0.9rem;
 }
 
 #loadProjectPrompt div div div.modal-footer {
   margin-top: 1.5rem;
-  background-color: #ededed;
+  background-color: hsl(0, 0%, 93%);
   border-top: 0px;
   padding-left: 25px;
   padding-right: 25px;
   font-size: 0.9rem;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
 }
 
 #loadProjectPrompt div div div.modal-footer div button.btn-link {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
 }
 
 #loadProjectPrompt div div div.modal-footer div button.btn-secondary {
   color: #6e9dee !important;
   border-color: #6e9dee;
-  background-color: #ededed;
+  background-color: hsl(0, 0%, 93%);
 }
 
 #loadProjectPrompt div div div.modal-footer div button.btn-primary {
   /* color: hsl(0, 0%, 27%) !important; */
   border: 0px;
-  background-color: #0091eb;
+  background-color: hsla(203, 100%, 46%, 1);
 }
 
 #saveProjectConfirm {
   z-index: 1058;
-  color: #6b6b6b;
+  color: hsl(0, 0%, 42%);
 }
 
 #saveProjectConfirm div.modal-dialog {
@@ -372,7 +369,7 @@
 }
 
 #saveProjectConfirm div div.modal-content {
-  background-color: #fcfcfc;
+  background-color: hsl(0, 0%, 99%);
   border-top: 6px solid #0092ed;
 }
 
@@ -386,7 +383,7 @@
 }
 
 #saveProjectConfirm div div div.modal-header h5 {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
   font-weight: 600;
   font-size: 1.4rem;
   width: 100% !important;
@@ -414,7 +411,7 @@
 }
 
 #saveProjectConfirm div div div.modal-footer p strong a {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
 }
 
 #saveProjectConfirm div div div div.form-forgot-password {
@@ -424,13 +421,13 @@
 }
 
 #saveProjectConfirm div div div div.form-forgot-password strong a {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
   font-size: 0.9rem;
 }
 
 #saveProjectConfirm div div div.modal-footer {
   margin-top: 1.5rem;
-  background-color: #ededed;
+  background-color: hsl(0, 0%, 93%);
   border-top: 0px;
   padding-left: 25px;
   padding-right: 25px;
@@ -439,18 +436,17 @@
 }
 
 #saveProjectConfirm div div div.modal-footer div button.btn-link {
-  color: #454545 !important;
+  color: hsl(0, 0%, 27%) !important;
 }
 
 #saveProjectConfirm div div div.modal-footer div button.btn-secondary {
   color: #6e9dee !important;
   border-color: #6e9dee;
-  background-color: #ededed;
+  background-color: hsl(0, 0%, 93%);
 }
 
 #saveProjectConfirm div div div.modal-footer div button.btn-primary {
   /* color: hsl(0, 0%, 27%) !important; */
   border: 0px;
-  background-color: #0091eb;
+  background-color: hsla(203, 100%, 46%, 1);
 }
-/*# sourceMappingURL=cloud.css.map */
