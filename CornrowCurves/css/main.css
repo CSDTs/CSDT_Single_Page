@@ -42,19 +42,6 @@ h2 {
   font-size: 1.5rem;
 }
 
-h3 {
-  /* margin-bottom: -0.75rem;
-  color: #1a202c;
-  line-height: 1.25;
-  font-weight: 500;
-  font-size: 1.25rem;
-  margin-top: 1.5rem;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px; */
-}
-
 h5 {
   font-size: 1.25rem;
 }
@@ -644,9 +631,6 @@ svg rect {
   padding-left: 25px;
   padding-right: 25px;
   font-size: 0.9rem;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
 }
 
 #saveProjectPrompt div div div.modal-footer div button.btn-link, #saveProjectPrompt div div div.modal-footer div nav.application-nav button.btn-clear, nav.application-nav #saveProjectPrompt div div div.modal-footer div button.btn-clear, #saveProjectPrompt div div div.modal-footer div nav.application-nav button.btn-dropdown, nav.application-nav #saveProjectPrompt div div div.modal-footer div button.btn-dropdown {
@@ -740,9 +724,9 @@ svg rect {
   padding-left: 25px;
   padding-right: 25px;
   font-size: 0.9rem;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: right;
+      -ms-flex-pack: right;
+          justify-content: right;
 }
 
 #loadProjectPrompt div div div.modal-footer div button.btn-link, #loadProjectPrompt div div div.modal-footer div nav.application-nav button.btn-clear, nav.application-nav #loadProjectPrompt div div div.modal-footer div button.btn-clear, #loadProjectPrompt div div div.modal-footer div nav.application-nav button.btn-dropdown, nav.application-nav #loadProjectPrompt div div div.modal-footer div button.btn-dropdown {
@@ -836,7 +820,9 @@ svg rect {
   padding-left: 25px;
   padding-right: 25px;
   font-size: 0.9rem;
-  /* justify-content: space-between; */
+  -webkit-box-pack: right;
+      -ms-flex-pack: right;
+          justify-content: right;
 }
 
 #saveProjectConfirm div div div.modal-footer div button.btn-link, #saveProjectConfirm div div div.modal-footer div nav.application-nav button.btn-clear, nav.application-nav #saveProjectConfirm div div div.modal-footer div button.btn-clear, #saveProjectConfirm div div div.modal-footer div nav.application-nav button.btn-dropdown, nav.application-nav #saveProjectConfirm div div div.modal-footer div button.btn-dropdown {

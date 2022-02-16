@@ -16,92 +16,132 @@ let currentApplicationSplit = window.location.href.split("/").slice(-1);
 let currentLocation = window.location.href.split(currentApplicationSplit)[0];
 let isAppHomepage = currentLocation.includes("CSDT_Single_Page");
 
+function createSelect() {
+  let data = {};
+
+  fetch("/accounts/logout/", {
+    method: "POST", // or 'PUT'
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Success:", data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
+function createOption(data) {}
+
+function createButton(args) {
+  let styles = args?.styles || "";
+  let text = args?.text || "Ok";
+  let dismiss = args?.dismiss || false;
+  let target = args?.target || false;
+  let id = args?.id || "";
+  let callback = args?.callback;
+
+  let button = document.createElement("button");
+  button.id = id;
+  button.innerHTML = text;
+  button.classList.add("btn");
+  button.setAttribute("type", "button");
+
+  if (styles) button.classList.add(styles);
+  if (dismiss) button.setAttribute("data-dismiss", "modal");
+  if (target) {
+    button.setAttribute("data-toggle", "modal");
+    button.setAttribute("data-target", target);
+  }
+  if (callback) button.addEventListener("click", callback);
+
+  return button;
+}
 /////////////////////////////////
 //Base Class
 /////////////////////////////////
 
 class Modal {
-  constructor(id, label) {
-    this.label = label;
+  constructor(id, headingText = "Modal") {
     this.id = id;
+    this.headingText = headingText;
+    this.content = null;
+    this.header = this.createHeader();
+    this.body = this.createBody();
+    this.footer = this.createFooter();
+    this.modal = this.createModal();
   }
 
-  createHeader(text) {
+  createHeader() {
     let container = document.createElement("div");
-    let header = document.createElement("h5");
-
     container.classList.add("modal-header");
-    header.classList.add("modal-title");
-    header.id = this.label;
-    header.innerHTML = text;
-
-    container.append(header);
+    container.innerHTML = `<h5 class='modal-title' id='${this.id}Label'>${this.headingText}</h5>`;
     return container;
   }
 
-  createModal(contentObj) {
-    let dialog = this.createDialog();
-
-    this.modal = document.createElement("div");
-    this.modal.id = this.id;
-    this.modal.classList.add("modal", "fade");
-    this.modal.setAttribute("tabindex", "-1");
-    this.modal.setAttribute("aria-labelledby", this.label);
-    this.modal.setAttribute("aria-hidden", "true");
-
-    dialog.appendChild(contentObj);
-
-    this.modal.appendChild(dialog);
+  createFooter() {
+    let footer = document.createElement("div");
+    footer.classList.add("modal-footer");
+    return footer;
   }
 
-  createDialog() {
+  createBody() {
+    let body = document.createElement("div");
+    body.classList.add("modal-body");
+    return body;
+  }
+
+  createModal() {
     let dialog = document.createElement("div");
+    let modal = document.createElement("div");
+    this.content = document.createElement("div");
+
     dialog.classList.add("modal-dialog", "modal-dialog-centered");
 
-    return dialog;
+    this.content.classList.add("modal-content");
+
+    modal.id = this.id;
+    modal.classList.add("modal", "fade");
+    modal.setAttribute("tabindex", "-1");
+    modal.setAttribute("aria-labelledby", `${this.id}Label`);
+    modal.setAttribute("aria-hidden", "true");
+
+    dialog.append(this.content);
+    modal.appendChild(dialog);
+
+    return modal;
   }
 
-  createFooter(args) {
-    let container = document.createElement("div");
-    container.classList.add("modal-footer");
+  createPrompt() {
+    this.populateSection(this.footer, [this.createCancelBtn()]);
+    this.populateSection(this.content, [
+      this.header,
+      loader,
+      this.body,
+      this.footer,
+    ]);
+    document.body.appendChild(this.modal);
+  }
 
-    args.forEach((item) => {
-      container.appendChild(item);
+  createLoginBtn() {
+    return createButton({
+      text: "Login to Load",
+      styles: "btn-primary",
+      target: "#signInPrompt",
     });
-
-    return container;
-  }
-
-  createLoginBtn(id) {
-    let loginBtn = document.createElement("button");
-    loginBtn.id = id;
-    loginBtn.innerHTML = "Login to Load";
-    loginBtn.setAttribute("type", "button");
-    loginBtn.setAttribute("data-toggle", "modal");
-    loginBtn.setAttribute("data-target", "#signInPrompt");
-    loginBtn.classList.add("btn", "btn-primary");
-
-    this.loginBtn = loginBtn;
-    return loginBtn;
   }
 
   createCancelBtn() {
-    let cancelBtn = document.createElement("button");
-    cancelBtn.innerHTML = "Cancel";
-    cancelBtn.classList.add("btn", "btn-secondary");
-    cancelBtn.setAttribute("type", "button");
-    cancelBtn.setAttribute("data-dismiss", "modal");
-
-    return cancelBtn;
-  }
-
-  createBody(args) {
-    let body = document.createElement("div");
-    body.classList.add("modal-body");
-    args.forEach((item) => {
-      body.appendChild(item);
+    return createButton({
+      text: "Cancel",
+      styles: "btn-secondary",
+      dismiss: true,
     });
-    return body;
   }
 
   createLoader(msg, type = "dots") {
@@ -126,11 +166,21 @@ class Modal {
     p.innerHTML = msg;
     p.hidden = true;
     container.append(img, p);
-    // container.hidden = true;
-
     this.loaderImg = img;
     this.loaderMsg = p;
     return container;
+  }
+
+  updatePrompt(args, status) {
+    args.forEach((item) => {
+      item.hidden = status;
+    });
+  }
+
+  populateSection(obj, args) {
+    args.forEach((item) => {
+      obj.appendChild(item);
+    });
   }
 }
 
@@ -267,6 +317,21 @@ class Cloud {
       });
   }
 
+  createPrompts() {
+    this.signOutPrompt = new SignOutPrompt();
+    return {
+      signOutPrompt: this.signOutPrompt,
+    };
+  }
+
+  logoutPrompts() {
+    this.signOutPrompt.updatePrompt("hide");
+  }
+
+  logout() {
+    getCSRFToken();
+    fetch(api.logout);
+  }
   updateCurrentURL() {
     if (
       window.history !== undefined &&
@@ -417,8 +482,6 @@ class Cloud {
       }
     });
   }
-
-  serializeData(data) {}
 
   //API Calls for
   postToAPI(payload, url) {
@@ -587,29 +650,38 @@ class AlertPrompt {
 
 class SignOutPrompt extends Modal {
   constructor() {
-    super("signOutPrompt", "signOutPromptLabel");
-    this.createPrompt();
+    super("signOutPrompt", "Signing out");
   }
 
   createPrompt() {
-    let content = document.createElement("div");
     let myself = this;
-
-    content.classList.add("modal-content");
-
-    content.append(
-      super.createHeader("Signing out"),
-      super.createLoader(
-        "There was an error with signing you out. Please try again.",
-        "circle"
-      ),
-      this.createBody(),
-      this.createFooter()
+    let signOutBtn = createButton({
+      text: "Sign Out",
+      styles: "btn-danger",
+      dismiss: true,
+      callback: () => {
+        myself.attemptSignOut();
+      },
+    });
+    let loader = this.createLoader(
+      "There was an error with signing you out. Please try again.",
+      "circle"
     );
 
-    super.createModal(content);
+    this.bodyMessage = document.createElement("p");
+    this.bodyMessage.innerHTML = `Are you sure you want to sign out? By doing this, you won't be able to save your work.`;
 
-    myself.modal.addEventListener("click", () => {
+    this.populateSection(this.body, [message]);
+    this.populateSection(this.footer, [this.createCancelBtn(), signOutBtn]);
+
+    this.populateSection(this.content, [
+      this.header,
+      loader,
+      this.body,
+      this.footer,
+    ]);
+
+    this.modal.addEventListener("click", () => {
       if (myself.loaderMsg.hidden == false) {
         myself.loaderMsg.hidden = true;
       }
@@ -618,35 +690,7 @@ class SignOutPrompt extends Modal {
     document.body.appendChild(myself.modal);
   }
 
-  createBody() {
-    let body = document.createElement("div");
-    let msg = document.createElement("p");
-
-    body.classList.add("modal-body");
-    msg.innerHTML = `Are you sure you want to sign out? By doing this, you won't be able to save your work.`;
-    body.append(msg);
-
-    this.bodyMsg = msg;
-    return body;
-  }
-
-  createFooter() {
-    let myself = this;
-    let signOut = document.createElement("button");
-
-    signOut.classList.add("btn", "btn-danger");
-    signOut.setAttribute("data-dismiss", "modal");
-    signOut.setAttribute("type", "button");
-    signOut.innerHTML = "Sign Out";
-
-    signOut.addEventListener("click", () => {
-      myself.attemptSignOut();
-    });
-
-    return super.createFooter([super.createCancelBtn(), signOut]);
-  }
-
-  updateSignOutPrompt(status) {
+  updatePrompt(status) {
     this.loaderImg.hidden = status != "show";
     this.bodyMsg.hidden = status == "show";
   }
@@ -656,7 +700,7 @@ class SignOutPrompt extends Modal {
 
     getCSRFToken();
 
-    myself.updateSignOutPrompt("show");
+    myself.updatePrompt("show");
 
     cloud
       .postToAPI({}, api.logout)
@@ -666,7 +710,7 @@ class SignOutPrompt extends Modal {
         saveAsPrompt.clearData();
         saveAsPrompt.update();
         savePrompt.update();
-        myself.updateSignOutPrompt("hide");
+        myself.updatePrompt("hide");
 
         // Alert the user that they were successful
         alertPrompt.alertUser(`Logout was successful`, 2000);
@@ -675,7 +719,7 @@ class SignOutPrompt extends Modal {
       })
       .catch((err) => {
         //Update the sign out prompt
-        myself.updateSignOutPrompt("error");
+        myself.updatePrompt("error");
 
         // Let the user know that there was an error
         alertPrompt.alertUser(
@@ -695,7 +739,7 @@ class SignOutPrompt extends Modal {
 
 class LoadPrompt extends Modal {
   constructor() {
-    super("loadProjectPrompt", "loadProjectPromptLabel");
+    super("loadProjectPrompt");
     this.createPrompt();
   }
 
@@ -785,36 +829,25 @@ class LoadPrompt extends Modal {
   }
 
   createFooter() {
-    let importContainer = document.createElement("div");
-    let importBtn = document.createElement("button");
-    let loadContainer = document.createElement("div");
     let myself = this;
-    this.loadBtn = document.createElement("button");
 
-    importBtn.innerHTML = "Import file";
-    importBtn.hidden = true;
-    importBtn.setAttribute("type", "button");
-    importBtn.classList.add("btn", "btn-link", "pl-0");
-
-    importContainer.appendChild(importBtn);
-
-    this.loadBtn.id = "loadUserProject";
-    this.loadBtn.setAttribute("type", "button");
-    this.loadBtn.classList.add("btn", "btn-success");
-    this.loadBtn.innerHTML = "Load";
-    this.loadBtn.addEventListener("click", () => {
-      if (myself.projectList) {
-        cloud.load(myself.projectList.value, loadFromJSON);
-      }
+    this.loadBtn = createButton({
+      id: "loadUserProject",
+      text: "Load",
+      styles: "btn-success",
+      target: "#signInPrompt",
+      callback: () => {
+        if (myself.projectList) {
+          cloud.load(myself.projectList.value, loadFromJSON);
+        }
+      },
     });
 
-    loadContainer.append(
-      super.createCancelBtn(),
-      super.createLoginBtn("loadProjectSignIn"),
-      this.loadBtn
-    );
-
-    return super.createFooter([importContainer, loadContainer]);
+    return super.createFooter([
+      this.createCancelBtn(),
+      this.createLoginBtn(),
+      this.loadBtn,
+    ]);
   }
 
   fetchUserProjects() {
@@ -1005,7 +1038,7 @@ class Navigation {
 ////////////////////////////////
 class SavePrompt extends Modal {
   constructor() {
-    super("saveProjectConfirm", "saveProjectConfirmLabel");
+    super("saveProjectConfirm");
     this.createPrompt();
   }
 
@@ -1075,7 +1108,7 @@ class SavePrompt extends Modal {
 
 class SaveAsPrompt extends Modal {
   constructor() {
-    super("saveProjectPrompt", "saveProjectPromptLabel");
+    super("saveProjectPrompt");
     this.createPrompt();
   }
 
@@ -1290,7 +1323,7 @@ class SaveAsPrompt extends Modal {
 
 class SignInPrompt extends Modal {
   constructor() {
-    super("signInPrompt", "signInPromptLabel");
+    super("signInPrompt");
     this.createPrompt();
   }
 
@@ -1580,12 +1613,12 @@ class SignInPrompt extends Modal {
 
 let userNavigation = new Navigation();
 let signOutPrompt = new SignOutPrompt();
-let loadPrompt = new LoadPrompt();
+// let loadPrompt = new LoadPrompt();
 
-let savePrompt = new SavePrompt();
-let saveAsPrompt = new SaveAsPrompt();
-let signInPrompt = new SignInPrompt();
-let alertPrompt = new AlertPrompt();
+// let savePrompt = new SavePrompt();
+// let saveAsPrompt = new SaveAsPrompt();
+// let signInPrompt = new SignInPrompt();
+// let alertPrompt = new AlertPrompt();
 let cloud = new Cloud();
 /////////////////////////////////
 //Cloud helper functions

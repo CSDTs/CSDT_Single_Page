@@ -244,7 +244,7 @@
   padding-left: 25px;
   padding-right: 25px;
   font-size: 0.9rem;
-  justify-content: space-between;
+  // justify-content: space-between;
 }
 
 #saveProjectPrompt div div div.modal-footer div button.btn-link {
@@ -338,7 +338,7 @@
   padding-left: 25px;
   padding-right: 25px;
   font-size: 0.9rem;
-  justify-content: space-between;
+  justify-content: right;
 }
 
 #loadProjectPrompt div div div.modal-footer div button.btn-link {
@@ -432,7 +432,7 @@
   padding-left: 25px;
   padding-right: 25px;
   font-size: 0.9rem;
-  /* justify-content: space-between; */
+  justify-content: right;
 }
 
 #saveProjectConfirm div div div.modal-footer div button.btn-link {

@@ -243,9 +243,6 @@
   padding-left: 25px;
   padding-right: 25px;
   font-size: 0.9rem;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
 }
 
 #saveProjectPrompt div div div.modal-footer div button.btn-link {
@@ -339,9 +336,9 @@
   padding-left: 25px;
   padding-right: 25px;
   font-size: 0.9rem;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: right;
+      -ms-flex-pack: right;
+          justify-content: right;
 }
 
 #loadProjectPrompt div div div.modal-footer div button.btn-link {
@@ -435,7 +432,9 @@
   padding-left: 25px;
   padding-right: 25px;
   font-size: 0.9rem;
-  /* justify-content: space-between; */
+  -webkit-box-pack: right;
+      -ms-flex-pack: right;
+          justify-content: right;
 }
 
 #saveProjectConfirm div div div.modal-footer div button.btn-link {
