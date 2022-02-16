@@ -288,8 +288,7 @@ const csdtAPI = {
   logout: "/accounts/logout/",
 };
 
-let currentApplicationSplit = "index.html";
-
 //Quick and dirty approach to handling broken images for new project saves
+let currentApplicationSplit = window.location.href.split("/").slice(-1);
 let currentLocation = window.location.href.split(currentApplicationSplit)[0];
 let isAppHomepage = currentLocation.includes("CSDT_Single_Page");

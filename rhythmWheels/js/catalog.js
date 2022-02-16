@@ -56,25 +56,25 @@ const catalog = {
   blank1: {
     name: "Blank",
     url: "sounds/blank1.wav",
-    icon: "img/blank.png",
+    icon: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAACSklEQVRoQ9XavUrDUBjG8SfVQdHBYgdBBAd1E7wF9Qa8BgdB6GAXdXESPxc7CN28ht6An1cgdmsd6iB0sOig4iAiMUZP6Elz3pP3bU67pMNJyL+/5vQ0rYf502eMzI6hnx9vjRcP0+sbmFg56ecOtKol7ycgVPl8Beq7AL4c78oBczvA4Cjw1nhBrZgPQlSV+2Pg6dztkMIyMLMZnGOrWkKzUg5CVJWPR+B21e2QhTNgaPJPwz/Z/5B+UdFoREP6RUWj0RkSUTkCni7ceovFaHSGuK4So6EPcVWli4Y+xFWVLhrxIa6pJGjEh7imkqDRPURVaRwC7ctsZjADje4hrqgYaCSHZK1iqJEckrWKoYZZSFYqBA2zkKxUCBrmIb1WIWqYh/RahahBC+mVioUGLaRXKhYa9BBpFUsNeoi0iqWGXUhE5QBoX/GswQpLwMxWcKzfOyOUA//ffKDsFd4H47zjkkLDTsTfi1slpYZ9CPe1klIjXQiXCoNGuhAuFQaN9CERlX2gfU2ZMgAmjfQhaVWYNHhCbFUYNXhCbFUYNfhCqCrMGnwhVBVmDd6QiMoe0L7Rz2Dji8DstvWaKm5atFtrxR0tXIO9PwB3a/pRAhq8Ih1rMI2KkAZ/iHqt6FSENGRC4q4VQQ2ZkDgVQQ25EFWlvgd4AyIzlTqb8M5a6pHVGczLAcNTkd/FaavL5NFyIbr/uFh8F09OCEbIhajXiv/89z8jpidGHScboqoIasiLhCr+tlbMU19lynhZkfDT3t82K2XKiVHHfgMBGcvrtfn0CgAAAABJRU5ErkJggg==",
     buffer: null,
   },
   blank2: {
     name: "Blank",
     url: "sounds/blank2.wav",
-    icon: "img/blank.png",
+    icon: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAACSklEQVRoQ9XavUrDUBjG8SfVQdHBYgdBBAd1E7wF9Qa8BgdB6GAXdXESPxc7CN28ht6An1cgdmsd6iB0sOig4iAiMUZP6Elz3pP3bU67pMNJyL+/5vQ0rYf502eMzI6hnx9vjRcP0+sbmFg56ecOtKol7ycgVPl8Beq7AL4c78oBczvA4Cjw1nhBrZgPQlSV+2Pg6dztkMIyMLMZnGOrWkKzUg5CVJWPR+B21e2QhTNgaPJPwz/Z/5B+UdFoREP6RUWj0RkSUTkCni7ceovFaHSGuK4So6EPcVWli4Y+xFWVLhrxIa6pJGjEh7imkqDRPURVaRwC7ctsZjADje4hrqgYaCSHZK1iqJEckrWKoYZZSFYqBA2zkKxUCBrmIb1WIWqYh/RahahBC+mVioUGLaRXKhYa9BBpFUsNeoi0iqWGXUhE5QBoX/GswQpLwMxWcKzfOyOUA//ffKDsFd4H47zjkkLDTsTfi1slpYZ9CPe1klIjXQiXCoNGuhAuFQaN9CERlX2gfU2ZMgAmjfQhaVWYNHhCbFUYNXhCbFUYNfhCqCrMGnwhVBVmDd6QiMoe0L7Rz2Dji8DstvWaKm5atFtrxR0tXIO9PwB3a/pRAhq8Ih1rMI2KkAZ/iHqt6FSENGRC4q4VQQ2ZkDgVQQ25EFWlvgd4AyIzlTqb8M5a6pHVGczLAcNTkd/FaavL5NFyIbr/uFh8F09OCEbIhajXiv/89z8jpidGHScboqoIasiLhCr+tlbMU19lynhZkfDT3t82K2XKiVHHfgMBGcvrtfn0CgAAAABJRU5ErkJggg==",
     buffer: null,
   },
   blank3: {
     name: "Blank",
     url: "sounds/blank3.wav",
-    icon: "img/blank.png",
+    icon: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAACSklEQVRoQ9XavUrDUBjG8SfVQdHBYgdBBAd1E7wF9Qa8BgdB6GAXdXESPxc7CN28ht6An1cgdmsd6iB0sOig4iAiMUZP6Elz3pP3bU67pMNJyL+/5vQ0rYf502eMzI6hnx9vjRcP0+sbmFg56ecOtKol7ycgVPl8Beq7AL4c78oBczvA4Cjw1nhBrZgPQlSV+2Pg6dztkMIyMLMZnGOrWkKzUg5CVJWPR+B21e2QhTNgaPJPwz/Z/5B+UdFoREP6RUWj0RkSUTkCni7ceovFaHSGuK4So6EPcVWli4Y+xFWVLhrxIa6pJGjEh7imkqDRPURVaRwC7ctsZjADje4hrqgYaCSHZK1iqJEckrWKoYZZSFYqBA2zkKxUCBrmIb1WIWqYh/RahahBC+mVioUGLaRXKhYa9BBpFUsNeoi0iqWGXUhE5QBoX/GswQpLwMxWcKzfOyOUA//ffKDsFd4H47zjkkLDTsTfi1slpYZ9CPe1klIjXQiXCoNGuhAuFQaN9CERlX2gfU2ZMgAmjfQhaVWYNHhCbFUYNXhCbFUYNfhCqCrMGnwhVBVmDd6QiMoe0L7Rz2Dji8DstvWaKm5atFtrxR0tXIO9PwB3a/pRAhq8Ih1rMI2KkAZ/iHqt6FSENGRC4q4VQQ2ZkDgVQQ25EFWlvgd4AyIzlTqb8M5a6pHVGczLAcNTkd/FaavL5NFyIbr/uFh8F09OCEbIhajXiv/89z8jpidGHScboqoIasiLhCr+tlbMU19lynhZkfDT3t82K2XKiVHHfgMBGcvrtfn0CgAAAABJRU5ErkJggg==",
     buffer: null,
   },
   blank4: {
     name: "Blank",
     url: "sounds/blank4.wav",
-    icon: "img/blank.png",
+    icon: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAACSklEQVRoQ9XavUrDUBjG8SfVQdHBYgdBBAd1E7wF9Qa8BgdB6GAXdXESPxc7CN28ht6An1cgdmsd6iB0sOig4iAiMUZP6Elz3pP3bU67pMNJyL+/5vQ0rYf502eMzI6hnx9vjRcP0+sbmFg56ecOtKol7ycgVPl8Beq7AL4c78oBczvA4Cjw1nhBrZgPQlSV+2Pg6dztkMIyMLMZnGOrWkKzUg5CVJWPR+B21e2QhTNgaPJPwz/Z/5B+UdFoREP6RUWj0RkSUTkCni7ceovFaHSGuK4So6EPcVWli4Y+xFWVLhrxIa6pJGjEh7imkqDRPURVaRwC7ctsZjADje4hrqgYaCSHZK1iqJEckrWKoYZZSFYqBA2zkKxUCBrmIb1WIWqYh/RahahBC+mVioUGLaRXKhYa9BBpFUsNeoi0iqWGXUhE5QBoX/GswQpLwMxWcKzfOyOUA//ffKDsFd4H47zjkkLDTsTfi1slpYZ9CPe1klIjXQiXCoNGuhAuFQaN9CERlX2gfU2ZMgAmjfQhaVWYNHhCbFUYNXhCbFUYNfhCqCrMGnwhVBVmDd6QiMoe0L7Rz2Dji8DstvWaKm5atFtrxR0tXIO9PwB3a/pRAhq8Ih1rMI2KkAZ/iHqt6FSENGRC4q4VQQ2ZkDgVQQ25EFWlvgd4AyIzlTqb8M5a6pHVGczLAcNTkd/FaavL5NFyIbr/uFh8F09OCEbIhajXiv/89z8jpidGHScboqoIasiLhCr+tlbMU19lynhZkfDT3t82K2XKiVHHfgMBGcvrtfn0CgAAAABJRU5ErkJggg==",
     buffer: null,
   },
   clap1: {
@@ -146,19 +146,19 @@ const catalog = {
   electricsnare1: {
     name: "Electric Snare",
     url: "sounds/electricsnare1.wav",
-    icon: "img/electricsnare.png",
+    icon: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAJ9wAACfcBI0Y2IwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABSSURBVDiN7dSxDYAwDETRb0TBTCnZgR2yG3uw1qeADEBkUdmSdd2TrrlAJeHWN0/gmjQacICK9ie+P9pRl4xaAAUVVNA/0JiRPWCbNBpAZA3bDd8jPUBs/cdNAAAAAElFTkSuQmCC",
     buffer: null,
   },
   electricsnare2: {
     name: "Electric Snare",
     url: "sounds/electricsnare2.wav",
-    icon: "img/electricsnare.png",
+    icon: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAJ9wAACfcBI0Y2IwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABSSURBVDiN7dSxDYAwDETRb0TBTCnZgR2yG3uw1qeADEBkUdmSdd2TrrlAJeHWN0/gmjQacICK9ie+P9pRl4xaAAUVVNA/0JiRPWCbNBpAZA3bDd8jPUBs/cdNAAAAAElFTkSuQmCC",
     buffer: null,
   },
   electricsnare3: {
     name: "Electric Snare",
     url: "sounds/electricsnare3.wav",
-    icon: "img/electricsnare.png",
+    icon: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAJ9wAACfcBI0Y2IwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABSSURBVDiN7dSxDYAwDETRb0TBTCnZgR2yG3uw1qeADEBkUdmSdd2TrrlAJeHWN0/gmjQacICK9ie+P9pRl4xaAAUVVNA/0JiRPWCbNBpAZA3bDd8jPUBs/cdNAAAAAElFTkSuQmCC",
     buffer: null,
   },
   electroclap1: {
@@ -650,7 +650,7 @@ const catalog = {
   "cali-wah-guitar": {
     name: "Cali Wah Guitar",
     url: "sounds/Cali-Wah-Guitar.mp3",
-    icon: "img/electricsnare.png",
+    icon: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAJ9wAACfcBI0Y2IwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAABSSURBVDiN7dSxDYAwDETRb0TBTCnZgR2yG3uw1qeADEBkUdmSdd2TrrlAJeHWN0/gmjQacICK9ie+P9pRl4xaAAUVVNA/0JiRPWCbNBpAZA3bDd8jPUBs/cdNAAAAAElFTkSuQmCC",
     buffer: null,
   },
   "low-sway-futuristic": {
