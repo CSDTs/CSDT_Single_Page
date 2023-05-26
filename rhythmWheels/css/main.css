@@ -5,3 +5,9 @@
 @import "./components/loader.css";
 @import "./utils/cloud.css";
 @import "./pages/rhythmwheels.css";
+
+.wheel_repeat_input {
+	width: 60px;
+
+	border-radius: 10px;
+}
