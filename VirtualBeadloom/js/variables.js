@@ -1,63 +1,63 @@
 let cloudUI = {
-  projects: "user-projects",
-  classrooms: "user-classrooms",
-  logout: "logout-btn",
+	projects: "user-projects",
+	classrooms: "user-classrooms",
+	logout: "logout-btn",
 
-  loadProject: "load-project",
-  saveProjectAs: "save-project-as",
-  applicationProjects: "project-list",
-  classroomName: "classroom-name",
+	loadProject: "load-project",
+	saveProjectAs: "save-project-as",
+	applicationProjects: "project-list",
+	classroomName: "classroom-name",
 
-  signInPrompt: "signInPrompt",
-  signInSubmit: "signUserIn",
-  signInLoader: "signInLoader",
-  signInErrorMsg: "signInErrorMsg",
-  passwordVisibility: "show_hide_password-addon",
-  passwordEyeIcon: "passwordEye",
-  usernameField: "usernameField",
-  passwordField: "passwordField",
+	signInPrompt: "signInPrompt",
+	signInSubmit: "signUserIn",
+	signInLoader: "signInLoader",
+	signInErrorMsg: "signInErrorMsg",
+	passwordVisibility: "show_hide_password-addon",
+	passwordEyeIcon: "passwordEye",
+	usernameField: "usernameField",
+	passwordField: "passwordField",
 
-  signOutPrompt: "signOutPrompt",
-  signOutSubmit: "signUserOut",
-  signOutLoader: "signOutLoader",
-  signOutErrorMsg: "signOutErrorMsg",
+	signOutPrompt: "signOutPrompt",
+	signOutSubmit: "signUserOut",
+	signOutLoader: "signOutLoader",
+	signOutErrorMsg: "signOutErrorMsg",
 
-  loadingOverlay: "loading-overlay",
+	loadingOverlay: "loading-overlay",
 
-  userAlertModal: "userAlert",
-  userAlertMsg: "userAlertMsg",
+	userAlertModal: "userAlert",
+	userAlertMsg: "userAlertMsg",
 
-  saveProjectPrompt: "saveProjectPrompt",
-  saveProjectSubmit: "saveUserProject",
-  saveProjectSignIn: "saveProjectSignIn",
-  projectNameField: "projectNameField",
-  saveProjectConfirm: "saveProjectConfirm",
-  saveConfirmedSignIn: "saveProjectConfirmSignIn",
-  saveConfirmedSubmit: "saveUserProjectConfirmed",
-  saveConfirmMsg: "saveProjectConfirmMsg",
+	saveProjectPrompt: "saveProjectPrompt",
+	saveProjectSubmit: "saveUserProject",
+	saveProjectSignIn: "saveProjectSignIn",
+	projectNameField: "projectNameField",
+	saveProjectConfirm: "saveProjectConfirm",
+	saveConfirmedSignIn: "saveProjectConfirmSignIn",
+	saveConfirmedSubmit: "saveUserProjectConfirmed",
+	saveConfirmMsg: "saveProjectConfirmMsg",
 
-  loadProjectPrompt: "loadProjectPrompt",
-  loadProjectSubmit: "loadUserProject",
-  loadProjectList: "loadProjectList",
-  loadProjectSignIn: "loadProjectSignIn",
-  loadProjectMsg: "loadProjectPromptMsg",
-  loadProjectLoader: "loadProjectLoader",
+	loadProjectPrompt: "loadProjectPrompt",
+	loadProjectSubmit: "loadUserProject",
+	loadProjectList: "loadProjectList",
+	loadProjectSignIn: "loadProjectSignIn",
+	loadProjectMsg: "loadProjectPromptMsg",
+	loadProjectLoader: "loadProjectLoader",
 
-  loadLocalProject: "loadLocalProject",
-  saveLocalProject: "saveLocalProject",
+	loadLocalProject: "loadLocalProject",
+	saveLocalProject: "saveLocalProject",
 
-  navSignUp: "navSignUp",
-  navUserStatus: "navUserStatus",
-  navUserProjects: "navUserProjects",
-  navUserProfile: "",
-  navUserClassrooms: "navUserClassrooms",
-  navSignOut: "navSignOut",
-  navUserIcon: "navUserIcon",
-  navUserDropdown: "navUserDropdown",
-  navUserContainer: "navUserContainer",
+	navSignUp: "navSignUp",
+	navUserStatus: "navUserStatus",
+	navUserProjects: "navUserProjects",
+	navUserProfile: "",
+	navUserClassrooms: "navUserClassrooms",
+	navSignOut: "navSignOut",
+	navUserIcon: "navUserIcon",
+	navUserDropdown: "navUserDropdown",
+	navUserContainer: "navUserContainer",
 
-  visibleModifiedStatus: "visibleModifiedStatus",
-  saveProjectClassroomSelect: "saveProjectClassroomSelect",
+	visibleModifiedStatus: "visibleModifiedStatus",
+	saveProjectClassroomSelect: "saveProjectClassroomSelect",
 };
 let applicationID = 100;
 let goalDirectory = "loom/bl-";
@@ -91,53 +91,53 @@ const RGBA = 3;
 
 // Data that gets passed to cloud framework
 let saveObject = {
-  project: beadStack,
-  image: myCanvas,
+	project: beadStack,
+	image: myCanvas,
 };
 let currentProject = {
-  id: "",
-  modified: false,
-  new: true,
-  name: "Untitled Project",
-  description: "",
-  classroom: "",
-  application: applicationID,
-  data_id: "",
-  screenshot_id: "",
-  created_at: "",
-  modified_at: "",
+	id: "",
+	modified: false,
+	new: true,
+	name: "Untitled Project",
+	description: "",
+	classroom: "",
+	application: applicationID,
+	data_id: "",
+	screenshot_id: "",
+	created_at: "",
+	modified_at: "",
 };
 
 let currentUser = {
-  id: "",
-  name: "",
-  loggedIn: false,
+	id: "",
+	name: "",
+	loggedIn: false,
 };
 
 class User {
-  constructor(id, name, status) {
-    this.id = id;
-    this.name = name;
-    this.status = status;
-  }
-  updateID(id) {
-    this.id = id;
-  }
-  updateName(name) {
-    this.name = name;
-  }
-  updateLoginStatus(status) {
-    this.status = status;
-  }
-  isLoggedIn() {
-    return this.status;
-  }
-  getId() {
-    return this.id;
-  }
-  getUsername() {
-    return this.name;
-  }
+	constructor(id, name, status) {
+		this.id = id;
+		this.name = name;
+		this.status = status;
+	}
+	updateID(id) {
+		this.id = id;
+	}
+	updateName(name) {
+		this.name = name;
+	}
+	updateLoginStatus(status) {
+		this.status = status;
+	}
+	isLoggedIn() {
+		return this.status;
+	}
+	getId() {
+		return this.id;
+	}
+	getUsername() {
+		return this.name;
+	}
 }
 const createBtn = document.getElementById("create-design");
 const beadStyleSelect = document.getElementById("bead-style");
@@ -177,12 +177,8 @@ const triangleEnds = document.getElementById("triangleIterationEnds");
 const triangleRowTotal = document.getElementById("rows-tri");
 
 const defaultColorSelect = document.getElementById("default-color");
-const firstIterationColorSelect = document.getElementById(
-  "first-iteration-color"
-);
-const secondIterationColorSelect = document.getElementById(
-  "second-iteration-color"
-);
+const firstIterationColorSelect = document.getElementById("first-iteration-color");
+const secondIterationColorSelect = document.getElementById("second-iteration-color");
 
 const redoBtn = document.getElementById("redo");
 const undoBtn = document.getElementById("undo");
@@ -204,60 +200,54 @@ const applicationContainer = document.getElementById("canvas-container");
 const dataContainer = document.getElementById("data-container");
 
 const loadProjectPreview = document.getElementById("loadProjectPreview");
-const loadProjectCreatedDate = document.getElementById(
-  "loadProjectCreatedDate"
-);
-const loadProjectModifiedDate = document.getElementById(
-  "loadProjectModifiedDate"
-);
+const loadProjectCreatedDate = document.getElementById("loadProjectCreatedDate");
+const loadProjectModifiedDate = document.getElementById("loadProjectModifiedDate");
 const loadProjectClassroom = document.getElementById("loadProjectClassroom");
 
 const loadProjectComponent = document.getElementById("loadProjectComponent");
 
-const detailsProjectComponent = document.getElementById(
-  "detailsProjectComponent"
-);
+const detailsProjectComponent = document.getElementById("detailsProjectComponent");
 
 const applicationTitle = document.getElementById("application-title");
 const csdtAPI = {
-  project: "/api/projects/",
-  classroom: "/api/team",
-  file: "/api/files/",
-  user: "/api/user",
-  login: "/accounts/login/",
-  loadProject: "/projects/",
-  logout: "/accounts/logout/",
+	project: "/api/projects/",
+	classroom: "/api/team",
+	file: "/api/files/",
+	user: "/api/user",
+	login: "/accounts/login/",
+	loadProject: "/projects/",
+	logout: "/accounts/logout/",
 };
 
 // Preemptive attempt to converge the three programs into one (since they literally share over 95% of the codebase)
 let navajoRugWeaverApp = {
-  id: 102,
-  gridColor: "#e9e9e9",
-  img: "rug/rug-",
-  examples: 9,
-  title: "Navajo Rug Weaver",
-  appSplit: "navajo.html",
-  isActive: false,
+	id: 102,
+	gridColor: "#e9e9e9",
+	img: "rug/rug-",
+	examples: 9,
+	title: "Navajo Rug Weaver",
+	appSplit: "navajo.html",
+	isActive: false,
 };
 
 let basketWeaverApp = {
-  id: 101,
-  gridColor: "#b3a683",
-  img: "basket/weave-",
-  examples: 9,
-  title: "Northwest Basket Weaver",
-  appSplit: "basketweaver.html",
-  isActive: false,
+	id: 101,
+	gridColor: "#b3a683",
+	img: "basket/weave-",
+	examples: 9,
+	title: "Northwest Basket Weaver",
+	appSplit: "basketweaver.html",
+	isActive: false,
 };
 
 let beadLoomApp = {
-  id: 100,
-  gridColor: "#e9e9e9",
-  img: "loom/bl-",
-  examples: 8,
-  title: "Virtual Bead Loom",
-  appSplit: "beadloom.html",
-  isActive: false,
+	id: 100,
+	gridColor: "#e9e9e9",
+	img: "loom/bl-",
+	examples: 8,
+	title: "Virtual Bead Loom",
+	appSplit: "beadloom.html",
+	isActive: false,
 };
 let navajoKnots = false;
 let basketWeaving = false;
